@@ -13,6 +13,7 @@ namespace LetsGoBikingServer.Services
     public interface IStationService
     {
         [OperationContract]
-        Task<string> GetAllStationsAsync(string contractName);
+        //Task<string> GetAllStationsAsync(string contractName);
+        Task<List<Station>> GetAllStationsAsync(string contractName);
     }
 }

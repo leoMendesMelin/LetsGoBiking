@@ -8,6 +8,8 @@ using System.Web;
 using System.Net.Http;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using System.Text.Json;
+
 namespace LetsGoBikingServer.Services
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
@@ -16,11 +18,13 @@ namespace LetsGoBikingServer.Services
         private readonly HttpClient _client = new HttpClient();
         private readonly string _apiKey = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
 
-        public async Task<string> GetAllStationsAsync(string contractName)
+
+        public async Task<List<Station>> GetAllStationsAsync(string contractName)
         {
             var response = await _client.GetAsync($"https://api.jcdecaux.com/vls/v1/stations?contract={contractName}&apiKey={_apiKey}");
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<Station>>(content);
         }
     }
 }
