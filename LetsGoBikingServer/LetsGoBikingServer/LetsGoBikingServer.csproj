@@ -101,7 +101,9 @@
     </Compile>
     <Compile Include="IService1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IRoutingService.cs" />
     <Compile Include="Services\IStationService.cs" />
+    <Compile Include="Services\RoutingService.cs" />
     <Compile Include="Services\StationService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,7 +145,7 @@
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
           <servers defaultServer="SelfHostServer">
-            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:50932/" workingDir="" />
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:50939/" workingDir="" />
           </servers>
         </WebProjectProperties>
       </FlavorProperties>
