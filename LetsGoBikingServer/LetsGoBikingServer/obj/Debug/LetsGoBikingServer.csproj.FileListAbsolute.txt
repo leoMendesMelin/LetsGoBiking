@@ -1,0 +1,7 @@
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\LetsGoBikingServer.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\obj\Debug\LetsGoBikingServer.csproj.AssemblyReference.cache
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\obj\Debug\LetsGoBikingServer.csproj.CoreCompileInputs.cache
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\obj\Debug\LetsGoBikingServer.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\LetsGoBikingServer.exe.config
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\LetsGoBikingServer.exe
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\obj\Debug\LetsGoBikingServer.exe
