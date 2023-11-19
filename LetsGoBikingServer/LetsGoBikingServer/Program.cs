@@ -8,27 +8,44 @@ namespace LetsGoBikingServer
     {
         static void Main(string[] args)
         {
-            Uri baseAddress = new Uri("http://localhost:8000/StationService");
-            using (ServiceHost host = new ServiceHost(typeof(StationService), baseAddress))
+            ServiceHost hostStation = CreateServiceHost(typeof(StationService), "http://localhost:8000/StationService");
+            ServiceHost hostRouting = CreateServiceHost(typeof(RoutingService), "http://localhost:8001/RoutingService");
+
+            try
             {
-                //juste un print
-                Console.WriteLine("Le service est prêt à l'adresse : {0}", baseAddress);
-                // Ajoutez ici les endpoints, les comportements, les bindings, etc.
-                host.AddServiceEndpoint(typeof(IStationService), new BasicHttpBinding(), "StationService");
+                StartService(hostStation, "StationService");
+                StartService(hostRouting, "RoutingService");
 
-                // Enable metadata publishing.
-                //ServiceMetadataBehavior smb = new ServiceMetadataBehavior { HttpGetEnabled = true };
-                //host.Description.Behaviors.Add(smb);
-
-                // Ouvrez le ServiceHost pour commencer à écouter les messages entrants.
-                host.Open();
-
-                Console.WriteLine("Le service est prêt à l'adresse : {0}", baseAddress);
-                Console.WriteLine("Appuyez sur <Entrée> pour arrêter le service.");
+                Console.WriteLine("Appuyez sur <Entrée> pour arrêter les services.");
                 Console.ReadLine();
+            }
+            finally
+            {
+                StopService(hostStation, "StationService");
+                StopService(hostRouting, "RoutingService");
+            }
+        }
 
-                // Fermez le ServiceHost pour arrêter le service.
+        static ServiceHost CreateServiceHost(Type serviceType, string address)
+        {
+            Uri serviceAddress = new Uri(address);
+            ServiceHost host = new ServiceHost(serviceType, serviceAddress);
+            host.AddServiceEndpoint(serviceType.GetInterfaces()[0], new BasicHttpBinding(), "");
+            return host;
+        }
+
+        static void StartService(ServiceHost host, string serviceName)
+        {
+            host.Open();
+            Console.WriteLine($"{serviceName} est prêt à l'adresse : {host.BaseAddresses[0]}");
+        }
+
+        static void StopService(ServiceHost host, string serviceName)
+        {
+            if (host != null)
+            {
                 host.Close();
+                Console.WriteLine($"{serviceName} a été arrêté.");
             }
         }
     }

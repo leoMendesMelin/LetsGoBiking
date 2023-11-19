@@ -15,9 +15,11 @@ public class Main {
         // Process the response as needed
         // For example, print out station details
         for (Station station : response.getStation()) {
+            String name = station.getName() != null ? station.getName().getValue() : "Unknown";
+            String address = station.getAddress() != null ? station.getAddress().getValue() : "No address provided";
             System.out.println("Station ID: " + station.getNumber()
-                    + ", Name: " + station.getName()
-                    + ", Address: " + station.getAddress());
+                    + ", Name: " + name
+                    + ", Address: " + address);
         }
     }
 }
