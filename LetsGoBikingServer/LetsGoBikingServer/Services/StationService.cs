@@ -6,9 +6,7 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Web;
 using System.Net.Http;
-using System.ServiceModel;
-using System.Threading.Tasks;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace LetsGoBikingServer.Services
 {
@@ -24,7 +22,7 @@ namespace LetsGoBikingServer.Services
             var response = await _client.GetAsync($"https://api.jcdecaux.com/vls/v1/stations?contract={contractName}&apiKey={_apiKey}");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<Station>>(content);
+            return JsonConvert.DeserializeObject<List<Station>>(content);
         }
     }
 }
