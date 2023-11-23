@@ -37,4 +37,24 @@ public interface IStationService {
         @WebParam(name = "contractName", targetNamespace = "http://tempuri.org/")
         String contractName);
 
+    /**
+     * 
+     * @param latitude
+     * @param contractName
+     * @param longitude
+     * @return
+     *     returns com.soap.ws.client.generated.Station
+     */
+    @WebMethod(operationName = "GetClosestStation", action = "http://tempuri.org/IStationService/GetClosestStation")
+    @WebResult(name = "GetClosestStationResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "GetClosestStation", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestStation")
+    @ResponseWrapper(localName = "GetClosestStationResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestStationResponse")
+    public Station getClosestStation(
+        @WebParam(name = "contractName", targetNamespace = "http://tempuri.org/")
+        String contractName,
+        @WebParam(name = "latitude", targetNamespace = "http://tempuri.org/")
+        Double latitude,
+        @WebParam(name = "longitude", targetNamespace = "http://tempuri.org/")
+        Double longitude);
+
 }

@@ -11,5 +11,6 @@ namespace LetsGoBikingServer.Models
         public string contractName { get; set; }
         public string name { get; set; }
         public string address { get; set; }
+        public Position position { get; set; }
     }
 }

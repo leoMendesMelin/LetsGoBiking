@@ -93,6 +93,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Contract.cs" />
+    <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Route.cs" />
+    <Compile Include="Models\RouteResponse.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,11 +104,11 @@
     <Compile Include="Services\IStationService.cs" />
     <Compile Include="Services\RoutingService.cs" />
     <Compile Include="Services\StationService.cs" />
+    <Compile Include="Utils\PositionConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

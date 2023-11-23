@@ -13,6 +13,12 @@ namespace LetsGoBikingServer.Services
     internal interface IRoutingService
     {
         [OperationContract]
-        Task<string> GetRouteAsync(string from, string to);
+        //Transform address to position
+        Task<Position> GetPositionAsync(string address);
+
+        [OperationContract]
+        Task<double> CalculateDistanceAsync(Position start, Position arrival);
+
+
     }
 }

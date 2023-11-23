@@ -1,0 +1,7 @@
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\obj\Debug\LetsGoBikingClientC#.csproj.AssemblyReference.cache
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\obj\Debug\LetsGoBikingClientC#.csproj.CoreCompileInputs.cache
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\LetsGoBikingClientC#.exe.config
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\LetsGoBikingClientC#.exe
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\LetsGoBikingClientC#.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\obj\Debug\LetsGoBikingClientC#.exe
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\obj\Debug\LetsGoBikingClientC#.pdb

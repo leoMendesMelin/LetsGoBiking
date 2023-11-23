@@ -28,8 +28,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _ArrayOfStation_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", "ArrayOfStation");
-    private final static QName _Station_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", "Station");
+    private final static QName _Position_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", "Position");
     private final static QName _AnyType_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyType");
     private final static QName _AnyURI_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "anyURI");
     private final static QName _Base64Binary_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "base64Binary");
@@ -51,11 +50,8 @@ public class ObjectFactory {
     private final static QName _Char_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "char");
     private final static QName _Duration_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "duration");
     private final static QName _Guid_QNAME = new QName("http://schemas.microsoft.com/2003/10/Serialization/", "guid");
-    private final static QName _GetAllStationsContractName_QNAME = new QName("http://tempuri.org/", "contractName");
-    private final static QName _GetAllStationsResponseGetAllStationsResult_QNAME = new QName("http://tempuri.org/", "GetAllStationsResult");
-    private final static QName _StationAddress_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", "address");
-    private final static QName _StationContractName_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", "contractName");
-    private final static QName _StationName_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", "name");
+    private final static QName _GetPositionAddress_QNAME = new QName("http://tempuri.org/", "address");
+    private final static QName _GetPositionResponseGetPositionResult_QNAME = new QName("http://tempuri.org/", "GetPositionResult");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.soap.ws.client.generated
@@ -65,61 +61,40 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAllStations }
+     * Create an instance of {@link GetPosition }
      * 
      */
-    public GetAllStations createGetAllStations() {
-        return new GetAllStations();
+    public GetPosition createGetPosition() {
+        return new GetPosition();
     }
 
     /**
-     * Create an instance of {@link GetAllStationsResponse }
+     * Create an instance of {@link GetPositionResponse }
      * 
      */
-    public GetAllStationsResponse createGetAllStationsResponse() {
-        return new GetAllStationsResponse();
+    public GetPositionResponse createGetPositionResponse() {
+        return new GetPositionResponse();
     }
 
     /**
-     * Create an instance of {@link ArrayOfStation }
+     * Create an instance of {@link Position }
      * 
      */
-    public ArrayOfStation createArrayOfStation() {
-        return new ArrayOfStation();
+    public Position createPosition() {
+        return new Position();
     }
 
     /**
-     * Create an instance of {@link Station }
-     * 
-     */
-    public Station createStation() {
-        return new Station();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfStation }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Position }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfStation }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Position }{@code >}
      */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", name = "ArrayOfStation")
-    public JAXBElement<ArrayOfStation> createArrayOfStation(ArrayOfStation value) {
-        return new JAXBElement<ArrayOfStation>(_ArrayOfStation_QNAME, ArrayOfStation.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Station }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Station }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", name = "Station")
-    public JAXBElement<Station> createStation(Station value) {
-        return new JAXBElement<Station>(_Station_QNAME, Station.class, null, value);
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", name = "Position")
+    public JAXBElement<Position> createPosition(Position value) {
+        return new JAXBElement<Position>(_Position_QNAME, Position.class, null, value);
     }
 
     /**
@@ -403,61 +378,22 @@ public class ObjectFactory {
      * @return
      *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "contractName", scope = GetAllStations.class)
-    public JAXBElement<String> createGetAllStationsContractName(String value) {
-        return new JAXBElement<String>(_GetAllStationsContractName_QNAME, String.class, GetAllStations.class, value);
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "address", scope = GetPosition.class)
+    public JAXBElement<String> createGetPositionAddress(String value) {
+        return new JAXBElement<String>(_GetPositionAddress_QNAME, String.class, GetPosition.class, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ArrayOfStation }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Position }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfStation }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Position }{@code >}
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetAllStationsResult", scope = GetAllStationsResponse.class)
-    public JAXBElement<ArrayOfStation> createGetAllStationsResponseGetAllStationsResult(ArrayOfStation value) {
-        return new JAXBElement<ArrayOfStation>(_GetAllStationsResponseGetAllStationsResult_QNAME, ArrayOfStation.class, GetAllStationsResponse.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", name = "address", scope = Station.class)
-    public JAXBElement<String> createStationAddress(String value) {
-        return new JAXBElement<String>(_StationAddress_QNAME, String.class, Station.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", name = "contractName", scope = Station.class)
-    public JAXBElement<String> createStationContractName(String value) {
-        return new JAXBElement<String>(_StationContractName_QNAME, String.class, Station.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", name = "name", scope = Station.class)
-    public JAXBElement<String> createStationName(String value) {
-        return new JAXBElement<String>(_StationName_QNAME, String.class, Station.class, value);
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "GetPositionResult", scope = GetPositionResponse.class)
+    public JAXBElement<Position> createGetPositionResponseGetPositionResult(Position value) {
+        return new JAXBElement<Position>(_GetPositionResponseGetPositionResult_QNAME, Position.class, GetPositionResponse.class, value);
     }
 
 }
