@@ -74,6 +74,481 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RouteResponse", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class RouteResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.Feature[] FeaturesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.Feature[] Features {
+            get {
+                return this.FeaturesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FeaturesField, value) != true)) {
+                    this.FeaturesField = value;
+                    this.RaisePropertyChanged("Features");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Feature", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class Feature : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.Properties PropertiesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.Properties Properties {
+            get {
+                return this.PropertiesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PropertiesField, value) != true)) {
+                    this.PropertiesField = value;
+                    this.RaisePropertyChanged("Properties");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Properties", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class Properties : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.Segment[] SegmentsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.Summary SummaryField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.Segment[] Segments {
+            get {
+                return this.SegmentsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegmentsField, value) != true)) {
+                    this.SegmentsField = value;
+                    this.RaisePropertyChanged("Segments");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.Summary Summary {
+            get {
+                return this.SummaryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SummaryField, value) != true)) {
+                    this.SummaryField = value;
+                    this.RaisePropertyChanged("Summary");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Summary", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class Summary : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double DistanceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double DurationField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Distance {
+            get {
+                return this.DistanceField;
+            }
+            set {
+                if ((this.DistanceField.Equals(value) != true)) {
+                    this.DistanceField = value;
+                    this.RaisePropertyChanged("Distance");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Duration {
+            get {
+                return this.DurationField;
+            }
+            set {
+                if ((this.DurationField.Equals(value) != true)) {
+                    this.DurationField = value;
+                    this.RaisePropertyChanged("Duration");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Segment", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class Segment : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double DistanceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double DurationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.Step[] StepsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Distance {
+            get {
+                return this.DistanceField;
+            }
+            set {
+                if ((this.DistanceField.Equals(value) != true)) {
+                    this.DistanceField = value;
+                    this.RaisePropertyChanged("Distance");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Duration {
+            get {
+                return this.DurationField;
+            }
+            set {
+                if ((this.DurationField.Equals(value) != true)) {
+                    this.DurationField = value;
+                    this.RaisePropertyChanged("Duration");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.Step[] Steps {
+            get {
+                return this.StepsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StepsField, value) != true)) {
+                    this.StepsField = value;
+                    this.RaisePropertyChanged("Steps");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Step", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class Step : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double DistanceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double DurationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string InstructionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int[] WayPointsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Distance {
+            get {
+                return this.DistanceField;
+            }
+            set {
+                if ((this.DistanceField.Equals(value) != true)) {
+                    this.DistanceField = value;
+                    this.RaisePropertyChanged("Distance");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Duration {
+            get {
+                return this.DurationField;
+            }
+            set {
+                if ((this.DurationField.Equals(value) != true)) {
+                    this.DurationField = value;
+                    this.RaisePropertyChanged("Duration");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Instruction {
+            get {
+                return this.InstructionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InstructionField, value) != true)) {
+                    this.InstructionField = value;
+                    this.RaisePropertyChanged("Instruction");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int[] WayPoints {
+            get {
+                return this.WayPointsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WayPointsField, value) != true)) {
+                    this.WayPointsField = value;
+                    this.RaisePropertyChanged("WayPoints");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CompleteRoute", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class CompleteRoute : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.RouteResponse BikeRouteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.RouteResponse WalkToEndField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.RouteResponse WalkToStartStationField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.RouteResponse BikeRoute {
+            get {
+                return this.BikeRouteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BikeRouteField, value) != true)) {
+                    this.BikeRouteField = value;
+                    this.RaisePropertyChanged("BikeRoute");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.RouteResponse WalkToEnd {
+            get {
+                return this.WalkToEndField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WalkToEndField, value) != true)) {
+                    this.WalkToEndField = value;
+                    this.RaisePropertyChanged("WalkToEnd");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.RouteResponse WalkToStartStation {
+            get {
+                return this.WalkToStartStationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WalkToStartStationField, value) != true)) {
+                    this.WalkToStartStationField = value;
+                    this.RaisePropertyChanged("WalkToStartStation");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RoutingServiceReference.IRoutingService")]
     public interface IRoutingService {
@@ -89,6 +564,18 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/CalculateDistance", ReplyAction="http://tempuri.org/IRoutingService/CalculateDistanceResponse")]
         System.Threading.Tasks.Task<double> CalculateDistanceAsync(LetsGoBikingClientC_.RoutingServiceReference.Position start, LetsGoBikingClientC_.RoutingServiceReference.Position arrival);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetRoute", ReplyAction="http://tempuri.org/IRoutingService/GetRouteResponse")]
+        LetsGoBikingClientC_.RoutingServiceReference.RouteResponse GetRoute(double startLat, double startLon, double endLat, double endLon, string typeRoute);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetRoute", ReplyAction="http://tempuri.org/IRoutingService/GetRouteResponse")]
+        System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.RouteResponse> GetRouteAsync(double startLat, double startLon, double endLat, double endLon, string typeRoute);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetCompleteRoute", ReplyAction="http://tempuri.org/IRoutingService/GetCompleteRouteResponse")]
+        LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute GetCompleteRoute(string startAddress, string endAddress);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetCompleteRoute", ReplyAction="http://tempuri.org/IRoutingService/GetCompleteRouteResponse")]
+        System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute> GetCompleteRouteAsync(string startAddress, string endAddress);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -132,6 +619,22 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         
         public System.Threading.Tasks.Task<double> CalculateDistanceAsync(LetsGoBikingClientC_.RoutingServiceReference.Position start, LetsGoBikingClientC_.RoutingServiceReference.Position arrival) {
             return base.Channel.CalculateDistanceAsync(start, arrival);
+        }
+        
+        public LetsGoBikingClientC_.RoutingServiceReference.RouteResponse GetRoute(double startLat, double startLon, double endLat, double endLon, string typeRoute) {
+            return base.Channel.GetRoute(startLat, startLon, endLat, endLon, typeRoute);
+        }
+        
+        public System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.RouteResponse> GetRouteAsync(double startLat, double startLon, double endLat, double endLon, string typeRoute) {
+            return base.Channel.GetRouteAsync(startLat, startLon, endLat, endLon, typeRoute);
+        }
+        
+        public LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute GetCompleteRoute(string startAddress, string endAddress) {
+            return base.Channel.GetCompleteRoute(startAddress, endAddress);
+        }
+        
+        public System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute> GetCompleteRouteAsync(string startAddress, string endAddress) {
+            return base.Channel.GetCompleteRouteAsync(startAddress, endAddress);
         }
     }
 }

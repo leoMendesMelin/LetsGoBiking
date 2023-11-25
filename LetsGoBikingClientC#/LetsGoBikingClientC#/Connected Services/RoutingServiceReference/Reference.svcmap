@@ -22,10 +22,11 @@
     <MetadataSource Address="http://localhost:8001/RoutingService?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="RoutingService.xsd" MetadataType="Schema" ID="53fde077-634e-46a2-8585-2d4b9739d441" SourceId="1" SourceUrl="http://localhost:8001/RoutingService?xsd=xsd0" />
     <MetadataFile FileName="RoutingService1.xsd" MetadataType="Schema" ID="55e6ff6a-ddaf-46aa-8329-d6a5ccbd7eec" SourceId="1" SourceUrl="http://localhost:8001/RoutingService?xsd=xsd1" />
     <MetadataFile FileName="RoutingService.wsdl" MetadataType="Wsdl" ID="cd0ffe20-aa35-4ec8-a765-b13bb8518126" SourceId="1" SourceUrl="http://localhost:8001/RoutingService?wsdl" />
     <MetadataFile FileName="RoutingService2.xsd" MetadataType="Schema" ID="ab34e7ec-ec02-49ec-bdda-068953e4ec3f" SourceId="1" SourceUrl="http://localhost:8001/RoutingService?xsd=xsd2" />
+    <MetadataFile FileName="RoutingService3.xsd" MetadataType="Schema" ID="22957b5e-e95e-453a-a20d-feb8314cfe87" SourceId="1" SourceUrl="http://localhost:8001/RoutingService?xsd=xsd3" />
+    <MetadataFile FileName="RoutingService.xsd" MetadataType="Schema" ID="53fde077-634e-46a2-8585-2d4b9739d441" SourceId="1" SourceUrl="http://localhost:8001/RoutingService?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

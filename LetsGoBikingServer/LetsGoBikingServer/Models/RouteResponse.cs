@@ -17,7 +17,24 @@ namespace LetsGoBikingServer.Models
 
     public class Properties
     {
+        public List<Segment> Segments { get; set; }
         public Summary Summary { get; set; }
+    }
+
+    public class Segment
+    {
+        public double Distance { get; set; }
+        public double Duration { get; set; }
+        public List<Step> Steps { get; set; }
+    }
+
+    public class Step
+    {
+        public double Distance { get; set; }
+        public double Duration { get; set; }
+        public string Instruction { get; set; }
+        public string Name { get; set; }
+        public List<int> WayPoints { get; set; }
     }
 
     public class Summary
@@ -25,4 +42,5 @@ namespace LetsGoBikingServer.Models
         public double Distance { get; set; }
         public double Duration { get; set; }
     }
+
 }

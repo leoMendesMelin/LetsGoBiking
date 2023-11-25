@@ -77,6 +77,30 @@ namespace LetsGoBikingServer.Services
             return closestContract;
         }
 
+        public async Task<List<Station>> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations)
+        {
+            string closestContract = await GetClosestContractAsync(userLatitude, userLongitude);
+            List<Station> listStation = await GetAllStationsAsync(closestContract);
+
+            // Trier les stations par distance
+            listStation.Sort((station1, station2) =>
+            {
+                Position station1Position = new Position { Lat = station1.position.Lat, Lon = station1.position.Lon };
+                Position station2Position = new Position { Lat = station2.position.Lat, Lon = station2.position.Lon };
+                Position userPosition = new Position { Lat = userLatitude, Lon = userLongitude };
+
+                double distance1 = _iRoutingService.CalculateDistanceAsync(userPosition, station1Position).Result;
+                double distance2 = _iRoutingService.CalculateDistanceAsync(userPosition, station2Position).Result;
+
+                return distance1.CompareTo(distance2);
+            });
+
+            // Retourne le nombre de stations demandé
+            return listStation.Take(numberOfStations).ToList();
+        }
+
+
+
 
 
     }

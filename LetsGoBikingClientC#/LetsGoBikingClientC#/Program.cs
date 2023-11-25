@@ -19,17 +19,21 @@ namespace LetsGoBikingClientC_
 
             RoutingServiceReference.RoutingServiceClient routingClient = new RoutingServiceReference.RoutingServiceClient();
 
-            var route = await routingClient.GetPositionAsync("Rue des néfliers, montreuil, france");
+            var adressStart = await routingClient.GetPositionAsync("Rue des néfliers, montreuil, france");
+            var adresseEnd = await routingClient.GetPositionAsync("67 Av. Pablo Picasso, 92000 Nanterre");
 
-            Console.WriteLine($"Route: {route.Lat}");
-            Console.WriteLine($"Route: {route.Lon}");
+            string start = "Rue des néfliers, montreuil, france";
+            string end = "67 Av. Pablo Picasso, 92000 Nanterre";
 
-            string contractName = client.GetClosestContract(route.Lat, route.Lon);
-            Console.WriteLine($"Contract: {contractName}");
-            //Affiche les stations
-           
-           
 
-            }
+            
+            await routingClient.GetCompleteRouteAsync(start,end);
+
+
+
+
+
+
+        }
     }
 }

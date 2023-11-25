@@ -19,6 +19,12 @@ namespace LetsGoBikingServer.Services
         [OperationContract]
         Task<double> CalculateDistanceAsync(Position start, Position arrival);
 
+        [OperationContract]
+        Task<RouteResponse> GetRouteAsync(double startLat, double startLon, double endLat, double endLon, string typeRoute);
+
+        [OperationContract]
+        Task<CompleteRoute> GetCompleteRouteAsync(string startAddress, string endAddress);
+
 
     }
 }

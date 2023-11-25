@@ -198,6 +198,12 @@ namespace LetsGoBikingClientC_.StationServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetClosestContract", ReplyAction="http://tempuri.org/IStationService/GetClosestContractResponse")]
         System.Threading.Tasks.Task<string> GetClosestContractAsync(double userLatitude, double userLongitude);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetClosestStations", ReplyAction="http://tempuri.org/IStationService/GetClosestStationsResponse")]
+        LetsGoBikingClientC_.StationServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetClosestStations", ReplyAction="http://tempuri.org/IStationService/GetClosestStationsResponse")]
+        System.Threading.Tasks.Task<LetsGoBikingClientC_.StationServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -241,6 +247,14 @@ namespace LetsGoBikingClientC_.StationServiceReference {
         
         public System.Threading.Tasks.Task<string> GetClosestContractAsync(double userLatitude, double userLongitude) {
             return base.Channel.GetClosestContractAsync(userLatitude, userLongitude);
+        }
+        
+        public LetsGoBikingClientC_.StationServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations) {
+            return base.Channel.GetClosestStations(userLatitude, userLongitude, numberOfStations);
+        }
+        
+        public System.Threading.Tasks.Task<LetsGoBikingClientC_.StationServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations) {
+            return base.Channel.GetClosestStationsAsync(userLatitude, userLongitude, numberOfStations);
         }
     }
 }

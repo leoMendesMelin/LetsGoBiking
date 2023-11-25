@@ -60,7 +60,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Connected Services\RoutingServiceReference\LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\RoutingServiceReference\LetsGoBikingClientC_.RoutingServiceReference.Position.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\RoutingServiceReference\LetsGoBikingClientC_.RoutingServiceReference.RouteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\RoutingServiceReference\RoutingService.wsdl" />
@@ -71,6 +77,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\RoutingServiceReference\RoutingService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RoutingServiceReference\RoutingService3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\StationServiceReference\LetsGoBikingClientC_.StationServiceReference.Station.datasource">

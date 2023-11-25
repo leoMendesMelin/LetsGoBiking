@@ -19,6 +19,8 @@ namespace LetsGoBikingServer.Services
         [OperationContract]
         //find closest station from a given location
         Task<string> GetClosestContractAsync(double userLatitude, double userLongitude);
+        [OperationContract]
+        Task<List<Station>> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations);
     }
 
 
