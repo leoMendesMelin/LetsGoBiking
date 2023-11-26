@@ -69,6 +69,9 @@
     <None Include="Connected Services\RoutingServiceReference\LetsGoBikingClientC_.RoutingServiceReference.RouteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\RoutingServiceReference\LetsGoBikingClientC_.RoutingServiceReference.Station.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\RoutingServiceReference\RoutingService.wsdl" />
     <None Include="Connected Services\RoutingServiceReference\RoutingService.xsd">
       <SubType>Designer</SubType>
@@ -82,6 +85,9 @@
     <None Include="Connected Services\RoutingServiceReference\RoutingService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\StationServiceReference\LetsGoBikingClientC_.StationServiceReference.Contract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\StationServiceReference\LetsGoBikingClientC_.StationServiceReference.Station.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -93,6 +99,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\StationServiceReference\StationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\StationServiceReference\StationService3.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

@@ -183,6 +183,99 @@ namespace LetsGoBikingClientC_.StationServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Contract", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class Contract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] citiesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string commercial_nameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string country_codeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] cities {
+            get {
+                return this.citiesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.citiesField, value) != true)) {
+                    this.citiesField = value;
+                    this.RaisePropertyChanged("cities");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string commercial_name {
+            get {
+                return this.commercial_nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.commercial_nameField, value) != true)) {
+                    this.commercial_nameField = value;
+                    this.RaisePropertyChanged("commercial_name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string country_code {
+            get {
+                return this.country_codeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.country_codeField, value) != true)) {
+                    this.country_codeField = value;
+                    this.RaisePropertyChanged("country_code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameField, value) != true)) {
+                    this.nameField = value;
+                    this.RaisePropertyChanged("name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StationServiceReference.IStationService")]
     public interface IStationService {
@@ -193,17 +286,11 @@ namespace LetsGoBikingClientC_.StationServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetAllStations", ReplyAction="http://tempuri.org/IStationService/GetAllStationsResponse")]
         System.Threading.Tasks.Task<LetsGoBikingClientC_.StationServiceReference.Station[]> GetAllStationsAsync(string contractName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetClosestContract", ReplyAction="http://tempuri.org/IStationService/GetClosestContractResponse")]
-        string GetClosestContract(double userLatitude, double userLongitude);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetAllContracts", ReplyAction="http://tempuri.org/IStationService/GetAllContractsResponse")]
+        LetsGoBikingClientC_.StationServiceReference.Contract[] GetAllContracts();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetClosestContract", ReplyAction="http://tempuri.org/IStationService/GetClosestContractResponse")]
-        System.Threading.Tasks.Task<string> GetClosestContractAsync(double userLatitude, double userLongitude);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetClosestStations", ReplyAction="http://tempuri.org/IStationService/GetClosestStationsResponse")]
-        LetsGoBikingClientC_.StationServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetClosestStations", ReplyAction="http://tempuri.org/IStationService/GetClosestStationsResponse")]
-        System.Threading.Tasks.Task<LetsGoBikingClientC_.StationServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStationService/GetAllContracts", ReplyAction="http://tempuri.org/IStationService/GetAllContractsResponse")]
+        System.Threading.Tasks.Task<LetsGoBikingClientC_.StationServiceReference.Contract[]> GetAllContractsAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -241,20 +328,12 @@ namespace LetsGoBikingClientC_.StationServiceReference {
             return base.Channel.GetAllStationsAsync(contractName);
         }
         
-        public string GetClosestContract(double userLatitude, double userLongitude) {
-            return base.Channel.GetClosestContract(userLatitude, userLongitude);
+        public LetsGoBikingClientC_.StationServiceReference.Contract[] GetAllContracts() {
+            return base.Channel.GetAllContracts();
         }
         
-        public System.Threading.Tasks.Task<string> GetClosestContractAsync(double userLatitude, double userLongitude) {
-            return base.Channel.GetClosestContractAsync(userLatitude, userLongitude);
-        }
-        
-        public LetsGoBikingClientC_.StationServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations) {
-            return base.Channel.GetClosestStations(userLatitude, userLongitude, numberOfStations);
-        }
-        
-        public System.Threading.Tasks.Task<LetsGoBikingClientC_.StationServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations) {
-            return base.Channel.GetClosestStationsAsync(userLatitude, userLongitude, numberOfStations);
+        public System.Threading.Tasks.Task<LetsGoBikingClientC_.StationServiceReference.Contract[]> GetAllContractsAsync() {
+            return base.Channel.GetAllContractsAsync();
         }
     }
 }

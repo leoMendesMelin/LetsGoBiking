@@ -15,34 +15,15 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetClosestContract">
+  <xs:element name="GetAllContracts">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="userLatitude" type="xs:double" />
-        <xs:element minOccurs="0" name="userLongitude" type="xs:double" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetClosestContractResponse">
+  <xs:element name="GetAllContractsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetClosestContractResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetClosestStations">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="userLatitude" type="xs:double" />
-        <xs:element minOccurs="0" name="userLongitude" type="xs:double" />
-        <xs:element minOccurs="0" name="numberOfStations" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetClosestStationsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models" minOccurs="0" name="GetClosestStationsResult" nillable="true" type="q2:ArrayOfStation" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models" minOccurs="0" name="GetAllContractsResult" nillable="true" type="q2:ArrayOfContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

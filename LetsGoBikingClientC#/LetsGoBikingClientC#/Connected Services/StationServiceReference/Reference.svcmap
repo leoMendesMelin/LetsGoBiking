@@ -23,6 +23,7 @@
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="StationService.wsdl" MetadataType="Wsdl" ID="c3a56707-a0f9-413f-80c9-2cf7e92e8b1c" SourceId="1" SourceUrl="http://localhost:8000/StationService?wsdl" />
+    <MetadataFile FileName="StationService3.xsd" MetadataType="Schema" ID="f8977d37-c576-43ce-91b7-d91fe1ba0bd4" SourceId="1" SourceUrl="http://localhost:8000/StationService?xsd=xsd3" />
     <MetadataFile FileName="StationService.xsd" MetadataType="Schema" ID="6b76b75a-8f7d-4135-b584-64b3cbae0d4c" SourceId="1" SourceUrl="http://localhost:8000/StationService?xsd=xsd2" />
     <MetadataFile FileName="StationService1.xsd" MetadataType="Schema" ID="799d30fb-29ca-4aa4-b685-ce4c6b9f7415" SourceId="1" SourceUrl="http://localhost:8000/StationService?xsd=xsd1" />
     <MetadataFile FileName="StationService2.xsd" MetadataType="Schema" ID="ffe66a20-b142-49a4-b14f-703241655297" SourceId="1" SourceUrl="http://localhost:8000/StationService?xsd=xsd0" />

@@ -76,6 +76,115 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Station", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.SerializableAttribute()]
+    public partial class Station : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string addressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string contractNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int numberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private LetsGoBikingClientC_.RoutingServiceReference.Position positionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string address {
+            get {
+                return this.addressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.addressField, value) != true)) {
+                    this.addressField = value;
+                    this.RaisePropertyChanged("address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string contractName {
+            get {
+                return this.contractNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.contractNameField, value) != true)) {
+                    this.contractNameField = value;
+                    this.RaisePropertyChanged("contractName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameField, value) != true)) {
+                    this.nameField = value;
+                    this.RaisePropertyChanged("name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int number {
+            get {
+                return this.numberField;
+            }
+            set {
+                if ((this.numberField.Equals(value) != true)) {
+                    this.numberField = value;
+                    this.RaisePropertyChanged("number");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public LetsGoBikingClientC_.RoutingServiceReference.Position position {
+            get {
+                return this.positionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.positionField, value) != true)) {
+                    this.positionField = value;
+                    this.RaisePropertyChanged("position");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RouteResponse", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
     [System.SerializableAttribute()]
     public partial class RouteResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -559,11 +668,17 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetPosition", ReplyAction="http://tempuri.org/IRoutingService/GetPositionResponse")]
         System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.Position> GetPositionAsync(string address);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/CalculateDistance", ReplyAction="http://tempuri.org/IRoutingService/CalculateDistanceResponse")]
-        double CalculateDistance(LetsGoBikingClientC_.RoutingServiceReference.Position start, LetsGoBikingClientC_.RoutingServiceReference.Position arrival);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetClosestContract", ReplyAction="http://tempuri.org/IRoutingService/GetClosestContractResponse")]
+        string GetClosestContract(double userLatitude, double userLongitude);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/CalculateDistance", ReplyAction="http://tempuri.org/IRoutingService/CalculateDistanceResponse")]
-        System.Threading.Tasks.Task<double> CalculateDistanceAsync(LetsGoBikingClientC_.RoutingServiceReference.Position start, LetsGoBikingClientC_.RoutingServiceReference.Position arrival);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetClosestContract", ReplyAction="http://tempuri.org/IRoutingService/GetClosestContractResponse")]
+        System.Threading.Tasks.Task<string> GetClosestContractAsync(double userLatitude, double userLongitude);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetClosestStations", ReplyAction="http://tempuri.org/IRoutingService/GetClosestStationsResponse")]
+        LetsGoBikingClientC_.RoutingServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetClosestStations", ReplyAction="http://tempuri.org/IRoutingService/GetClosestStationsResponse")]
+        System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetRoute", ReplyAction="http://tempuri.org/IRoutingService/GetRouteResponse")]
         LetsGoBikingClientC_.RoutingServiceReference.RouteResponse GetRoute(double startLat, double startLon, double endLat, double endLon, string typeRoute);
@@ -613,12 +728,20 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
             return base.Channel.GetPositionAsync(address);
         }
         
-        public double CalculateDistance(LetsGoBikingClientC_.RoutingServiceReference.Position start, LetsGoBikingClientC_.RoutingServiceReference.Position arrival) {
-            return base.Channel.CalculateDistance(start, arrival);
+        public string GetClosestContract(double userLatitude, double userLongitude) {
+            return base.Channel.GetClosestContract(userLatitude, userLongitude);
         }
         
-        public System.Threading.Tasks.Task<double> CalculateDistanceAsync(LetsGoBikingClientC_.RoutingServiceReference.Position start, LetsGoBikingClientC_.RoutingServiceReference.Position arrival) {
-            return base.Channel.CalculateDistanceAsync(start, arrival);
+        public System.Threading.Tasks.Task<string> GetClosestContractAsync(double userLatitude, double userLongitude) {
+            return base.Channel.GetClosestContractAsync(userLatitude, userLongitude);
+        }
+        
+        public LetsGoBikingClientC_.RoutingServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations, string closestContract) {
+            return base.Channel.GetClosestStations(userLatitude, userLongitude, numberOfStations, closestContract);
+        }
+        
+        public System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract) {
+            return base.Channel.GetClosestStationsAsync(userLatitude, userLongitude, numberOfStations, closestContract);
         }
         
         public LetsGoBikingClientC_.RoutingServiceReference.RouteResponse GetRoute(double startLat, double startLon, double endLat, double endLon, string typeRoute) {

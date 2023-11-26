@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:8000/StationService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8000/StationService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8000/StationService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models" />
+      <xsd:import schemaLocation="http://localhost:8000/StationService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IStationService_GetAllStations_InputMessage">
@@ -13,30 +14,20 @@
   <wsdl:message name="IStationService_GetAllStations_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllStationsResponse" />
   </wsdl:message>
-  <wsdl:message name="IStationService_GetClosestContract_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetClosestContract" />
+  <wsdl:message name="IStationService_GetAllContracts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllContracts" />
   </wsdl:message>
-  <wsdl:message name="IStationService_GetClosestContract_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetClosestContractResponse" />
-  </wsdl:message>
-  <wsdl:message name="IStationService_GetClosestStations_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetClosestStations" />
-  </wsdl:message>
-  <wsdl:message name="IStationService_GetClosestStations_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetClosestStationsResponse" />
+  <wsdl:message name="IStationService_GetAllContracts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllContractsResponse" />
   </wsdl:message>
   <wsdl:portType name="IStationService">
     <wsdl:operation name="GetAllStations">
       <wsdl:input wsaw:Action="http://tempuri.org/IStationService/GetAllStations" message="tns:IStationService_GetAllStations_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStationService/GetAllStationsResponse" message="tns:IStationService_GetAllStations_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetClosestContract">
-      <wsdl:input wsaw:Action="http://tempuri.org/IStationService/GetClosestContract" message="tns:IStationService_GetClosestContract_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IStationService/GetClosestContractResponse" message="tns:IStationService_GetClosestContract_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetClosestStations">
-      <wsdl:input wsaw:Action="http://tempuri.org/IStationService/GetClosestStations" message="tns:IStationService_GetClosestStations_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IStationService/GetClosestStationsResponse" message="tns:IStationService_GetClosestStations_OutputMessage" />
+    <wsdl:operation name="GetAllContracts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStationService/GetAllContracts" message="tns:IStationService_GetAllContracts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStationService/GetAllContractsResponse" message="tns:IStationService_GetAllContracts_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStationService" type="tns:IStationService">
@@ -50,17 +41,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetClosestContract">
-      <soap:operation soapAction="http://tempuri.org/IStationService/GetClosestContract" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetClosestStations">
-      <soap:operation soapAction="http://tempuri.org/IStationService/GetClosestStations" style="document" />
+    <wsdl:operation name="GetAllContracts">
+      <soap:operation soapAction="http://tempuri.org/IStationService/GetAllContracts" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
