@@ -31,5 +31,7 @@ namespace LetsGoBikingLibrary2.Utils
         {
             // Implémentez si nécessaire pour la sérialisation
         }
+
+
     }
 }

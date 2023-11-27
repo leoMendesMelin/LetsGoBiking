@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="GetAllStationsResult" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models}ArrayOfStation" minOccurs="0"/&gt;
+ *         &lt;element name="GetAllStationsResult" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}ArrayOfStation" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "getAllStationsResult"
 })
-@XmlRootElement(name = "GetAllStationsResponse")
+@XmlRootElement(name = "GetAllStationsResponse", namespace = "http://tempuri.org/")
 public class GetAllStationsResponse {
 
     @XmlElementRef(name = "GetAllStationsResult", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)

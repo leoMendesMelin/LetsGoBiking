@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="contractName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="number" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
+ *         &lt;element name="position" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}Position" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -31,21 +32,24 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Station", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", propOrder = {
+@XmlType(name = "Station", propOrder = {
     "address",
     "contractName",
     "name",
-    "number"
+    "number",
+    "position"
 })
 public class Station {
 
-    @XmlElementRef(name = "address", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", type = JAXBElement.class, required = false)
+    @XmlElementRef(name = "address", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> address;
-    @XmlElementRef(name = "contractName", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", type = JAXBElement.class, required = false)
+    @XmlElementRef(name = "contractName", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> contractName;
-    @XmlElementRef(name = "name", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", type = JAXBElement.class, required = false)
+    @XmlElementRef(name = "name", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> name;
     protected Integer number;
+    @XmlElementRef(name = "position", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
+    protected JAXBElement<Position> position;
 
     /**
      * Obtient la valeur de la propriété address.
@@ -141,6 +145,30 @@ public class Station {
      */
     public void setNumber(Integer value) {
         this.number = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété position.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link Position }{@code >}
+     *     
+     */
+    public JAXBElement<Position> getPosition() {
+        return position;
+    }
+
+    /**
+     * Définit la valeur de la propriété position.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link Position }{@code >}
+     *     
+     */
+    public void setPosition(JAXBElement<Position> value) {
+        this.position = value;
     }
 
 }

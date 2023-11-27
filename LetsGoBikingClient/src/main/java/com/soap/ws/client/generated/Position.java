@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="Lat" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
- *         &lt;element name="Lng" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
+ *         &lt;element name="Lon" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -28,16 +28,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Position", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models", propOrder = {
+@XmlType(name = "Position", propOrder = {
     "lat",
-    "lng"
+    "lon"
 })
 public class Position {
 
     @XmlElement(name = "Lat")
     protected Double lat;
-    @XmlElement(name = "Lng")
-    protected Double lng;
+    @XmlElement(name = "Lon")
+    protected Double lon;
 
     /**
      * Obtient la valeur de la propriété lat.
@@ -64,27 +64,27 @@ public class Position {
     }
 
     /**
-     * Obtient la valeur de la propriété lng.
+     * Obtient la valeur de la propriété lon.
      * 
      * @return
      *     possible object is
      *     {@link Double }
      *     
      */
-    public Double getLng() {
-        return lng;
+    public Double getLon() {
+        return lon;
     }
 
     /**
-     * Définit la valeur de la propriété lng.
+     * Définit la valeur de la propriété lon.
      * 
      * @param value
      *     allowed object is
      *     {@link Double }
      *     
      */
-    public void setLng(Double value) {
-        this.lng = value;
+    public void setLon(Double value) {
+        this.lon = value;
     }
 
 }

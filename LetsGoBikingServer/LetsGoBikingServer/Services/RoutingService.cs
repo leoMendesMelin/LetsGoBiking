@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
 using LetsGoBikingProxy.Services;
+using LetsGoBikingServer.Utils;
 
 namespace LetsGoBikingServer.Services
 {
@@ -19,12 +20,16 @@ namespace LetsGoBikingServer.Services
     public class RoutingService : IRoutingService
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        //private IStationService _iStationService = new StationService();
+        private readonly ActiveMQService _activeMQService;
+
         private IStationProxyService _iStationService = new StationProxyService();
         string apiKeyOpenStreet = "5b3ce3597851110001cf62481d3c3c09de44442abe0e719a6ce409e1";
         string apiKeyJcDecaux = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
         public RoutingService() {
+            _activeMQService = new ActiveMQService("tcp://localhost:61616", "LetGoBikingQueue");
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "LetsGoBkingLeo");
+
+
         }
 
         public async Task<Position> GetPositionAsync(string address)
@@ -73,11 +78,52 @@ namespace LetsGoBikingServer.Services
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Désérialiser la réponse JSON
                 var routeData = JsonConvert.DeserializeObject<RouteResponse>(jsonResponse);
+
+                
+
+                // Vérifier si routeData et ses propriétés sont non nulles
+                if (routeData?.Features != null)
+                {
+                    Converter converter = new Converter();
+                    var coordinates = converter.ExtractCoordinatesFromJson(jsonResponse);
+
+                    // Vérifier si les coordonnées extraites sont non nulles et non vides
+                    if (coordinates != null && coordinates.Any())
+                    {
+                        converter.PopulateStepCoordinates(routeData, coordinates);
+
+                        //afficher toutes les coo des steps
+                        foreach (var feature in routeData.Features)
+                        {
+                            foreach (var segment in feature.Properties.Segments)
+                            {
+                                foreach (var step in segment.Steps)
+                                {
+                                    Console.WriteLine("Step START : " + step.StartLatitude + " " + step.StartLongitude);
+                                    Console.WriteLine("Step END : " + step.EndLatitude + " " + step.EndLongitude);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Aucune coordonnée extraite du JSON.");
+                        return null; // ou gérer autrement
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("La réponse de l'API ne contient pas les données attendues.");
+                    return null; // ou gérer autrement
+                }
 
                 return routeData;
             }
 
+            Console.WriteLine("Échec de la requête API.");
             return null;
         }
 
@@ -86,33 +132,34 @@ namespace LetsGoBikingServer.Services
         {
             Position startPosition = await this.GetPositionAsync(startAddress);
             Position endPosition = await this.GetPositionAsync(endAddress);
-            Console.WriteLine("ici ");
 
             string startContract = await GetClosestContractAsync(startPosition.Lat, startPosition.Lon);
 
 
             string endContract = await GetClosestContractAsync(endPosition.Lat, endPosition.Lon);
 
-            //Affichage contrat le plus proche
-            Console.WriteLine("Contrat le plus proche de la position de départ : " + startContract);
-            Console.WriteLine("Contrat le plus proche de la position d'arrivée : " + endContract);
-
-
 
             List<Station> startStations = await GetClosestStationsAsync(startPosition.Lat, startPosition.Lon, 1, startContract);
 
             List<Station> endStations = await GetClosestStationsAsync(endPosition.Lat, endPosition.Lon, 1, endContract);
 
-            //afficher station départ et arrivée
-            Console.WriteLine("Station départ : " + startStations.First().name);
-            Console.WriteLine("Station arrivée : " + endStations.First().name);
-           
-
+            Console.WriteLine("Start station : " + startStations.First().name);
             RouteResponse walkToStartStation = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, startStations.First().position.Lat, startStations.First().position.Lon, "walking");
+            Console.WriteLine("walk");
 
             RouteResponse bikeRoute = await this.GetRouteAsync(startStations.First().position.Lat, startStations.First().position.Lon, endStations.First().position.Lat, endStations.First().position.Lon, "cycling");
+            Console.WriteLine("bike");
 
             RouteResponse walkToEnd = await this.GetRouteAsync(endStations.First().position.Lat, endStations.First().position.Lon, endPosition.Lat, endPosition.Lon, "walking");
+            Console.WriteLine("walkend");
+
+            _activeMQService.SendMessage("Départ de l'itinéraire de " + startAddress);
+            _activeMQService.SendMessage("Marche vers la station de vélo");
+            _activeMQService.SendMessage("Trajet en vélo");
+            _activeMQService.SendMessage("Marche vers la destination finale");
+            _activeMQService.SendMessage("Arrivée à " + endAddress);
+
+      
 
             return new CompleteRoute
             {
@@ -226,37 +273,3 @@ namespace LetsGoBikingServer.Services
 }
 
 
-
-////{
-////    string requestUri = $"https://api.openrouteservice.org/v2/directions/driving-car?api_key={apiKeyOpenStreet}&start={start.Lon.ToString(System.Globalization.CultureInfo.InvariantCulture)},{start.Lat.ToString(System.Globalization.CultureInfo.InvariantCulture)}&end={arrival.Lon.ToString(System.Globalization.CultureInfo.InvariantCulture)},{arrival.Lat.ToString(System.Globalization.CultureInfo.InvariantCulture)}";
-
-////    for (int i = 0; i < 3; i++) // Nombre de tentatives
-////    {
-////        var response = await _httpClient.GetAsync(requestUri);
-
-////        if (response.IsSuccessStatusCode)
-////        {
-////            var jsonResponse = await response.Content.ReadAsStringAsync();
-////            var routeResponse = JsonConvert.DeserializeObject<RouteResponse>(jsonResponse);
-
-////            if (routeResponse.Features != null && routeResponse.Features.Any())
-////            {
-////                return routeResponse.Features.First().Properties.Summary.Distance;
-////            }
-////        }
-////        else if ((int)response.StatusCode == 429) // Vérifier le code d'état 429
-////        {
-////            Console.WriteLine("Trop de requêtes, attendez 1 seconde : " + response);
-////            await Task.Delay(1000 * (i + 1)); // Attendre avec un délai croissant
-////        }
-////        else
-////        {
-////            break; // Autres erreurs, abandonner
-////        }
-////    }
-
-////    Console.WriteLine("Erreur lors du calcul de la distance : ");
-////    Console.WriteLine("Start : " + start.Lat + " " + start.Lon);
-////    Console.WriteLine("Arrival : " + arrival.Lat + " " + arrival.Lon);
-////    return -1;
-////}

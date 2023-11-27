@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "contractName"
 })
-@XmlRootElement(name = "GetAllStations")
+@XmlRootElement(name = "GetAllStations", namespace = "http://tempuri.org/")
 public class GetAllStations {
 
     @XmlElementRef(name = "contractName", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)

@@ -30,3 +30,8 @@ C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\Let
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\obj\Debug\LetsGoBikingServer.pdb
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\LetsGoBikingProxy.pdb
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\LetsGoBikingProxy.exe.config
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\Apache.NMS.ActiveMQ.dll
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\Apache.NMS.dll
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\ICSharpCode.SharpZipLib.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingServer\bin\ICSharpCode.SharpZipLib.xml

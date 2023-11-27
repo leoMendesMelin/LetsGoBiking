@@ -37,4 +37,87 @@ public interface IRoutingService {
         @WebParam(name = "address", targetNamespace = "http://tempuri.org/")
         String address);
 
+    /**
+     * 
+     * @param userLatitude
+     * @param userLongitude
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(operationName = "GetClosestContract", action = "http://tempuri.org/IRoutingService/GetClosestContract")
+    @WebResult(name = "GetClosestContractResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "GetClosestContract", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestContract")
+    @ResponseWrapper(localName = "GetClosestContractResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestContractResponse")
+    public String getClosestContract(
+        @WebParam(name = "userLatitude", targetNamespace = "http://tempuri.org/")
+        Double userLatitude,
+        @WebParam(name = "userLongitude", targetNamespace = "http://tempuri.org/")
+        Double userLongitude);
+
+    /**
+     * 
+     * @param userLatitude
+     * @param userLongitude
+     * @param numberOfStations
+     * @param closestContract
+     * @return
+     *     returns com.soap.ws.client.generated.ArrayOfStation
+     */
+    @WebMethod(operationName = "GetClosestStations", action = "http://tempuri.org/IRoutingService/GetClosestStations")
+    @WebResult(name = "GetClosestStationsResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "GetClosestStations", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestStations")
+    @ResponseWrapper(localName = "GetClosestStationsResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestStationsResponse")
+    public ArrayOfStation getClosestStations(
+        @WebParam(name = "userLatitude", targetNamespace = "http://tempuri.org/")
+        Double userLatitude,
+        @WebParam(name = "userLongitude", targetNamespace = "http://tempuri.org/")
+        Double userLongitude,
+        @WebParam(name = "numberOfStations", targetNamespace = "http://tempuri.org/")
+        Integer numberOfStations,
+        @WebParam(name = "closestContract", targetNamespace = "http://tempuri.org/")
+        String closestContract);
+
+    /**
+     * 
+     * @param startLat
+     * @param endLat
+     * @param typeRoute
+     * @param startLon
+     * @param endLon
+     * @return
+     *     returns com.soap.ws.client.generated.RouteResponse
+     */
+    @WebMethod(operationName = "GetRoute", action = "http://tempuri.org/IRoutingService/GetRoute")
+    @WebResult(name = "GetRouteResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "GetRoute", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetRoute")
+    @ResponseWrapper(localName = "GetRouteResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetRouteResponse")
+    public RouteResponse getRoute(
+        @WebParam(name = "startLat", targetNamespace = "http://tempuri.org/")
+        Double startLat,
+        @WebParam(name = "startLon", targetNamespace = "http://tempuri.org/")
+        Double startLon,
+        @WebParam(name = "endLat", targetNamespace = "http://tempuri.org/")
+        Double endLat,
+        @WebParam(name = "endLon", targetNamespace = "http://tempuri.org/")
+        Double endLon,
+        @WebParam(name = "typeRoute", targetNamespace = "http://tempuri.org/")
+        String typeRoute);
+
+    /**
+     * 
+     * @param startAddress
+     * @param endAddress
+     * @return
+     *     returns com.soap.ws.client.generated.CompleteRoute
+     */
+    @WebMethod(operationName = "GetCompleteRoute", action = "http://tempuri.org/IRoutingService/GetCompleteRoute")
+    @WebResult(name = "GetCompleteRouteResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "GetCompleteRoute", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetCompleteRoute")
+    @ResponseWrapper(localName = "GetCompleteRouteResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetCompleteRouteResponse")
+    public CompleteRoute getCompleteRoute(
+        @WebParam(name = "startAddress", targetNamespace = "http://tempuri.org/")
+        String startAddress,
+        @WebParam(name = "endAddress", targetNamespace = "http://tempuri.org/")
+        String endAddress);
+
 }

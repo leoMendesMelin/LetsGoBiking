@@ -45,6 +45,38 @@
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>5.16.3</version> <!-- Utilisez la dernière version disponible -->
+        </dependency>
+
+        <!-- Dépendance pour JMS API -->
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version> <!-- Utilisez la dernière version disponible -->
+        </dependency>
+
+        <!-- Binding SLF4J avec Logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version> <!-- Utilisez la dernière version disponible -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.jxmapviewer</groupId>
+            <artifactId>jxmapviewer2</artifactId>
+            <version>2.5</version>
+        </dependency>
     </dependencies>
     <build>
 
@@ -63,7 +95,7 @@
                 </executions>
                 <configuration>
                     <wsdlUrls>
-                        <wsdlUrl>http://localhost:8000/StationService?wsdl</wsdlUrl>
+                        <wsdlUrl>http://localhost:8000/StationProxyService?wsdl</wsdlUrl>
                         <wsdlUrl>http://localhost:8001/RoutingService?wsdl</wsdlUrl>
                     </wsdlUrls>
                     <keep>true</keep>
