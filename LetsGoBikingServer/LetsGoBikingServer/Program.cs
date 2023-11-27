@@ -1,6 +1,7 @@
 ﻿using LetsGoBikingServer.Services;
-using System.ServiceModel;
 using System;
+using System.ServiceModel;
+using LetsGoBikingProxy.Services; // Ajoutez le namespace approprié pour StationProxyService
 
 namespace LetsGoBikingServer
 {
@@ -8,21 +9,26 @@ namespace LetsGoBikingServer
     {
         static void Main(string[] args)
         {
-            ServiceHost hostStation = CreateServiceHost(typeof(StationService), "http://localhost:8000/StationService");
+            // Héberger le RoutingService
             ServiceHost hostRouting = CreateServiceHost(typeof(RoutingService), "http://localhost:8001/RoutingService");
+
+            // Ajoutez la ligne suivante pour héberger le StationProxyService
+            //ServiceHost hostStationProxy = CreateServiceHost(typeof(StationProxyService), "http://localhost:8000/StationProxyService");
 
             try
             {
-                StartService(hostStation, "StationService");
                 StartService(hostRouting, "RoutingService");
+               // StartService(hostStationProxy, "StationProxyService"); // Démarrer le StationProxyService
+
+                //lancer les appels pour récupérer les données de JC DECAUX comme ça le cache est rempli
 
                 Console.WriteLine("Appuyez sur <Entrée> pour arrêter les services.");
                 Console.ReadLine();
             }
             finally
             {
-                StopService(hostStation, "StationService");
                 StopService(hostRouting, "RoutingService");
+               // StopService(hostStationProxy, "StationProxyService"); // Arrêter le StationProxyService
             }
         }
 

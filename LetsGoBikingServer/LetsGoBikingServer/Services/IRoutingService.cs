@@ -5,7 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Collections.Specialized.BitVector32;
-using LetsGoBikingServer.Models;
+using LetsGoBikingLibrary2.Models;
 
 namespace LetsGoBikingServer.Services
 {

@@ -15,7 +15,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Position", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Position", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class Position : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -76,7 +76,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Station", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Station", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class Station : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -185,7 +185,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RouteResponse", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RouteResponse", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class RouteResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -230,7 +230,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Feature", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Feature", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class Feature : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -275,7 +275,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Properties", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Properties", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class Properties : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -336,7 +336,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Summary", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Summary", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class Summary : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -397,7 +397,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Segment", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Segment", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class Segment : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -474,7 +474,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Step", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Step", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class Step : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -583,7 +583,7 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompleteRoute", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingServer.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CompleteRoute", Namespace="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models")]
     [System.SerializableAttribute()]
     public partial class CompleteRoute : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

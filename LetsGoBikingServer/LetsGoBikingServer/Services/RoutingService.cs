@@ -1,4 +1,4 @@
-﻿using LetsGoBikingServer.Models;
+﻿using LetsGoBikingLibrary2.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
+using LetsGoBikingProxy.Services;
 
 namespace LetsGoBikingServer.Services
 {
@@ -18,7 +19,8 @@ namespace LetsGoBikingServer.Services
     public class RoutingService : IRoutingService
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        private IStationService _iStationService = new StationService();
+        //private IStationService _iStationService = new StationService();
+        private IStationProxyService _iStationService = new StationProxyService();
         string apiKeyOpenStreet = "5b3ce3597851110001cf62481d3c3c09de44442abe0e719a6ce409e1";
         string apiKeyJcDecaux = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
         public RoutingService() {
@@ -35,7 +37,7 @@ namespace LetsGoBikingServer.Services
             Position[] locations = JsonConvert.DeserializeObject<Position[]>(jsonResponse); 
      
             
-
+                
             return locations.Length > 0 ? locations[0] : null; // on retourne le [0] soit la location avec la class la plus élevée 
         }
 
@@ -126,7 +128,7 @@ namespace LetsGoBikingServer.Services
 
         public async Task<string> GetClosestContractAsync(double userLatitude, double userLongitude)
         {
-            List<Models.Contract> listContract = await this._iStationService.GetAllContractsAsync();
+            List<Contract> listContract = await this._iStationService.GetAllContractsAsync();
             string closestContract = null;
             double closestDistance = double.MaxValue;
             Position userPosition = new Position { Lat = userLatitude, Lon = userLongitude };

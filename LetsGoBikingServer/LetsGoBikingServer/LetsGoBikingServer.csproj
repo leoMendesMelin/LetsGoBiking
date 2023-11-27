@@ -93,24 +93,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CompleteRoute.cs" />
-    <Compile Include="Models\Contract.cs" />
-    <Compile Include="Models\Position.cs" />
-    <Compile Include="Models\Route.cs" />
-    <Compile Include="Models\RouteResponse.cs" />
-    <Compile Include="Models\Station.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IRoutingService.cs" />
-    <Compile Include="Services\IStationService.cs" />
     <Compile Include="Services\RoutingService.cs" />
-    <Compile Include="Services\StationService.cs" />
-    <Compile Include="Utils\PositionConverter.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
@@ -122,6 +110,16 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LetsGoBikingLibrary2\LetsGoBikingLibrary2.csproj">
+      <Project>{ee2878c2-e3a5-41cf-89fe-0f9bbce4fd80}</Project>
+      <Name>LetsGoBikingLibrary2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LetsGoBikingProxy\LetsGoBikingProxy.csproj">
+      <Project>{a1755845-88bb-4cfa-8340-2fa80ff95b5f}</Project>
+      <Name>LetsGoBikingProxy</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

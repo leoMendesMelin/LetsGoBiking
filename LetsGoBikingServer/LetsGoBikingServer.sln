@@ -5,6 +5,10 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetsGoBikingServer", "LetsGoBikingServer\LetsGoBikingServer.csproj", "{9B61BAE7-6D98-48DF-878D-050FFE71B525}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetsGoBikingProxy", "LetsGoBikingProxy\LetsGoBikingProxy.csproj", "{A1755845-88BB-4CFA-8340-2FA80FF95B5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetsGoBikingLibrary2", "LetsGoBikingLibrary2\LetsGoBikingLibrary2.csproj", "{EE2878C2-E3A5-41CF-89FE-0F9BBCE4FD80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{9B61BAE7-6D98-48DF-878D-050FFE71B525}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B61BAE7-6D98-48DF-878D-050FFE71B525}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B61BAE7-6D98-48DF-878D-050FFE71B525}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1755845-88BB-4CFA-8340-2FA80FF95B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1755845-88BB-4CFA-8340-2FA80FF95B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1755845-88BB-4CFA-8340-2FA80FF95B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1755845-88BB-4CFA-8340-2FA80FF95B5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2878C2-E3A5-41CF-89FE-0F9BBCE4FD80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2878C2-E3A5-41CF-89FE-0F9BBCE4FD80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2878C2-E3A5-41CF-89FE-0F9BBCE4FD80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2878C2-E3A5-41CF-89FE-0F9BBCE4FD80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,12 +18,6 @@ namespace LetsGoBikingClientC_
 
             if (route != null)
             {
-                // Afficher les stations de départ et d'arrivée
-                string startStationName = GetStationName(route.WalkToStartStation);
-                string endStationName = GetStationName(route.WalkToEnd, true);
-
-                Console.WriteLine($"Station de départ: {startStationName}");
-                Console.WriteLine($"Station d'arrivée: {endStationName}");
 
                 // Afficher les détails de l'itinéraire
                 DisplayRouteSegment("Marche jusqu'à la station de départ", route.WalkToStartStation);
@@ -32,20 +26,6 @@ namespace LetsGoBikingClientC_
             }
         }
 
-        static string GetStationName(RouteResponse routeSegment, bool isEndStation = false)
-        {
-            if (routeSegment != null && routeSegment.Features != null && routeSegment.Features.Any())
-            {
-                var steps = routeSegment.Features.First().Properties.Segments.SelectMany(s => s.Steps).ToList();
-                if (steps.Any())
-                {
-                    // La station de départ est généralement la première étape et la station d'arrivée la dernière
-                    var step = isEndStation ? steps.Last() : steps.First();
-                    return step.Name;
-                }
-            }
-            return "Information non disponible";
-        }
 
         static void DisplayRouteSegment(string description, RouteResponse routeSegment)
         {
