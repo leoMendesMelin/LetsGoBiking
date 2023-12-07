@@ -75,7 +75,7 @@ public class ObjectFactory {
     private final static QName _GetCompleteRouteResponseGetCompleteRouteResult_QNAME = new QName("http://tempuri.org/", "GetCompleteRouteResult");
     private final static QName _StepInstruction_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "Instruction");
     private final static QName _StepName_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "Name");
-    private final static QName _StepWayPoints_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "WayPoints");
+    private final static QName _StepWayPoints_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "way_points");
     private final static QName _SegmentSteps_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "Steps");
     private final static QName _PropertiesSegments_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "Segments");
     private final static QName _StationAddress_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "address");
@@ -905,7 +905,7 @@ public class ObjectFactory {
      * @return
      *     the new instance of {@link JAXBElement }{@code <}{@link ArrayOfint }{@code >}
      */
-    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", name = "WayPoints", scope = Step.class)
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", name = "way_points", scope = Step.class)
     public JAXBElement<ArrayOfint> createStepWayPoints(ArrayOfint value) {
         return new JAXBElement<ArrayOfint>(_StepWayPoints_QNAME, ArrayOfint.class, Step.class, value);
     }

@@ -21,9 +21,14 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="Distance" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
  *         &lt;element name="Duration" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
+ *         &lt;element name="EndLatitude" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
+ *         &lt;element name="EndLongitude" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
  *         &lt;element name="Instruction" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="Name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="WayPoints" type="{http://schemas.microsoft.com/2003/10/Serialization/Arrays}ArrayOfint" minOccurs="0"/&gt;
+ *         &lt;element name="StartLatitude" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
+ *         &lt;element name="StartLongitude" type="{http://www.w3.org/2001/XMLSchema}double" minOccurs="0"/&gt;
+ *         &lt;element name="Type" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
+ *         &lt;element name="way_points" type="{http://schemas.microsoft.com/2003/10/Serialization/Arrays}ArrayOfint" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,8 +41,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Step", propOrder = {
     "distance",
     "duration",
+    "endLatitude",
+    "endLongitude",
     "instruction",
     "name",
+    "startLatitude",
+    "startLongitude",
+    "type",
     "wayPoints"
 })
 public class Step {
@@ -46,11 +56,21 @@ public class Step {
     protected Double distance;
     @XmlElement(name = "Duration")
     protected Double duration;
+    @XmlElement(name = "EndLatitude")
+    protected Double endLatitude;
+    @XmlElement(name = "EndLongitude")
+    protected Double endLongitude;
     @XmlElementRef(name = "Instruction", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> instruction;
     @XmlElementRef(name = "Name", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> name;
-    @XmlElementRef(name = "WayPoints", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
+    @XmlElement(name = "StartLatitude")
+    protected Double startLatitude;
+    @XmlElement(name = "StartLongitude")
+    protected Double startLongitude;
+    @XmlElement(name = "Type")
+    protected Integer type;
+    @XmlElementRef(name = "way_points", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<ArrayOfint> wayPoints;
 
     /**
@@ -102,6 +122,54 @@ public class Step {
     }
 
     /**
+     * Obtient la valeur de la propriété endLatitude.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getEndLatitude() {
+        return endLatitude;
+    }
+
+    /**
+     * Définit la valeur de la propriété endLatitude.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setEndLatitude(Double value) {
+        this.endLatitude = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété endLongitude.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getEndLongitude() {
+        return endLongitude;
+    }
+
+    /**
+     * Définit la valeur de la propriété endLongitude.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setEndLongitude(Double value) {
+        this.endLongitude = value;
+    }
+
+    /**
      * Obtient la valeur de la propriété instruction.
      * 
      * @return
@@ -147,6 +215,78 @@ public class Step {
      */
     public void setName(JAXBElement<String> value) {
         this.name = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété startLatitude.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getStartLatitude() {
+        return startLatitude;
+    }
+
+    /**
+     * Définit la valeur de la propriété startLatitude.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setStartLatitude(Double value) {
+        this.startLatitude = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété startLongitude.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public Double getStartLongitude() {
+        return startLongitude;
+    }
+
+    /**
+     * Définit la valeur de la propriété startLongitude.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setStartLongitude(Double value) {
+        this.startLongitude = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété type.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getType() {
+        return type;
+    }
+
+    /**
+     * Définit la valeur de la propriété type.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setType(Integer value) {
+        this.type = value;
     }
 
     /**

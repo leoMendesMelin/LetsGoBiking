@@ -11,18 +11,31 @@ namespace LetsGoBikingClientC_
         {
             Console.WriteLine("Hello World!");
             RoutingServiceClient routingClient = new RoutingServiceClient();
-            string start = "Avenue de la France Libre, Créteil";
-            string end = "Avenue du Maréchal de Lattre de Tassigny, Créteil";
+            string start = "8-22 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
+            string end = "8-22 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
 
-            CompleteRoute route = await routingClient.GetCompleteRouteAsync(start, end);
+            string endNotNecessaryBike = "Smile World Créteil, Centre Commercial Créteil Soleil, Av. de la France libre, 94000 Créteil";
 
-            if (route != null)
+            string casse = "Espace Sante, 13004 Marseille";
+
+
+            CompleteRoute completeRoute = await routingClient.GetCompleteRouteAsync(start, end);
+    
+            if(completeRoute.BikeRoute != null)
             {
-
-                // Afficher les détails de l'itinéraire
-                DisplayRouteSegment("Marche jusqu'à la station de départ", route.WalkToStartStation);
-                DisplayRouteSegment("Trajet en vélo", route.BikeRoute);
-                DisplayRouteSegment("Marche de la station d'arrivée à la destination", route.WalkToEnd);
+                //walk to start station
+                Console.WriteLine("WalkRoute to start station");
+                DisplayRouteSegment("WalkRoute", completeRoute.WalkToStartStation);
+                Console.WriteLine("BikeRoute");
+                DisplayRouteSegment("BikeRoute", completeRoute.BikeRoute);
+                Console.WriteLine("WalkRoute to end station");
+                DisplayRouteSegment("WalkRoute", completeRoute.WalkToEnd);
+            }
+            //elif
+            if(completeRoute.BikeRoute == null && completeRoute.WalkToStartStation !=null)
+            {
+                Console.WriteLine("WalkRoute to end adress because not necessary to get a bike");
+                DisplayRouteSegment("Total WalkRoute", completeRoute.WalkToStartStation);
             }
         }
 

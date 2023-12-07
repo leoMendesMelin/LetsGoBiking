@@ -8,19 +8,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Position" nillable="true" type="tns:Position" />
-  <xs:complexType name="ArrayOfStation">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Station" nillable="true" type="tns:Station" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfStation" nillable="true" type="tns:ArrayOfStation" />
   <xs:complexType name="Station">
     <xs:sequence>
       <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="available_bike_stands" type="xs:int" />
+      <xs:element minOccurs="0" name="available_bikes" type="xs:int" />
       <xs:element minOccurs="0" name="contractName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="number" type="xs:int" />
       <xs:element minOccurs="0" name="position" nillable="true" type="tns:Position" />
+      <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Station" nillable="true" type="tns:Station" />
@@ -73,9 +70,14 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Distance" type="xs:double" />
       <xs:element minOccurs="0" name="Duration" type="xs:double" />
+      <xs:element minOccurs="0" name="EndLatitude" type="xs:double" />
+      <xs:element minOccurs="0" name="EndLongitude" type="xs:double" />
       <xs:element minOccurs="0" name="Instruction" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="WayPoints" nillable="true" type="q1:ArrayOfint" />
+      <xs:element minOccurs="0" name="StartLatitude" type="xs:double" />
+      <xs:element minOccurs="0" name="StartLongitude" type="xs:double" />
+      <xs:element minOccurs="0" name="Type" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="way_points" nillable="true" type="q1:ArrayOfint" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Step" nillable="true" type="tns:Step" />

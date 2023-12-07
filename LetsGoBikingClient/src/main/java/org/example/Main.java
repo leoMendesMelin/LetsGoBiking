@@ -30,7 +30,7 @@ public class Main {
         }
 
         ActiveMQService activeMQService = new ActiveMQService("tcp://localhost:61616", "LetGoBikingQueue");
-        MapService mapService = new MapService();
+        //MapService mapService = new MapService();
 
         // Exécution des services
         activeMQService.start();

@@ -87,6 +87,12 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         private string addressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int available_bike_standsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int available_bikesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string contractNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -97,6 +103,9 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private LetsGoBikingClientC_.RoutingServiceReference.Position positionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string statusField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -117,6 +126,32 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
                 if ((object.ReferenceEquals(this.addressField, value) != true)) {
                     this.addressField = value;
                     this.RaisePropertyChanged("address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int available_bike_stands {
+            get {
+                return this.available_bike_standsField;
+            }
+            set {
+                if ((this.available_bike_standsField.Equals(value) != true)) {
+                    this.available_bike_standsField = value;
+                    this.RaisePropertyChanged("available_bike_stands");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int available_bikes {
+            get {
+                return this.available_bikesField;
+            }
+            set {
+                if ((this.available_bikesField.Equals(value) != true)) {
+                    this.available_bikesField = value;
+                    this.RaisePropertyChanged("available_bikes");
                 }
             }
         }
@@ -169,6 +204,19 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
                 if ((object.ReferenceEquals(this.positionField, value) != true)) {
                     this.positionField = value;
                     this.RaisePropertyChanged("position");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string status {
+            get {
+                return this.statusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statusField, value) != true)) {
+                    this.statusField = value;
+                    this.RaisePropertyChanged("status");
                 }
             }
         }
@@ -488,13 +536,28 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         private double DurationField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double EndLatitudeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double EndLongitudeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InstructionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int[] WayPointsField;
+        private double StartLatitudeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double StartLongitudeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int[] way_pointsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -533,6 +596,32 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public double EndLatitude {
+            get {
+                return this.EndLatitudeField;
+            }
+            set {
+                if ((this.EndLatitudeField.Equals(value) != true)) {
+                    this.EndLatitudeField = value;
+                    this.RaisePropertyChanged("EndLatitude");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double EndLongitude {
+            get {
+                return this.EndLongitudeField;
+            }
+            set {
+                if ((this.EndLongitudeField.Equals(value) != true)) {
+                    this.EndLongitudeField = value;
+                    this.RaisePropertyChanged("EndLongitude");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Instruction {
             get {
                 return this.InstructionField;
@@ -559,14 +648,53 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int[] WayPoints {
+        public double StartLatitude {
             get {
-                return this.WayPointsField;
+                return this.StartLatitudeField;
             }
             set {
-                if ((object.ReferenceEquals(this.WayPointsField, value) != true)) {
-                    this.WayPointsField = value;
-                    this.RaisePropertyChanged("WayPoints");
+                if ((this.StartLatitudeField.Equals(value) != true)) {
+                    this.StartLatitudeField = value;
+                    this.RaisePropertyChanged("StartLatitude");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double StartLongitude {
+            get {
+                return this.StartLongitudeField;
+            }
+            set {
+                if ((this.StartLongitudeField.Equals(value) != true)) {
+                    this.StartLongitudeField = value;
+                    this.RaisePropertyChanged("StartLongitude");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Type {
+            get {
+                return this.TypeField;
+            }
+            set {
+                if ((this.TypeField.Equals(value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int[] way_points {
+            get {
+                return this.way_pointsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.way_pointsField, value) != true)) {
+                    this.way_pointsField = value;
+                    this.RaisePropertyChanged("way_points");
                 }
             }
         }
@@ -675,10 +803,10 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         System.Threading.Tasks.Task<string> GetClosestContractAsync(double userLatitude, double userLongitude);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetClosestStations", ReplyAction="http://tempuri.org/IRoutingService/GetClosestStationsResponse")]
-        LetsGoBikingClientC_.RoutingServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
+        LetsGoBikingClientC_.RoutingServiceReference.Station GetClosestStations(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetClosestStations", ReplyAction="http://tempuri.org/IRoutingService/GetClosestStationsResponse")]
-        System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
+        System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.Station> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetRoute", ReplyAction="http://tempuri.org/IRoutingService/GetRouteResponse")]
         LetsGoBikingClientC_.RoutingServiceReference.RouteResponse GetRoute(double startLat, double startLon, double endLat, double endLon, string typeRoute);
@@ -736,11 +864,11 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
             return base.Channel.GetClosestContractAsync(userLatitude, userLongitude);
         }
         
-        public LetsGoBikingClientC_.RoutingServiceReference.Station[] GetClosestStations(double userLatitude, double userLongitude, int numberOfStations, string closestContract) {
+        public LetsGoBikingClientC_.RoutingServiceReference.Station GetClosestStations(double userLatitude, double userLongitude, int numberOfStations, string closestContract) {
             return base.Channel.GetClosestStations(userLatitude, userLongitude, numberOfStations, closestContract);
         }
         
-        public System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.Station[]> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract) {
+        public System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.Station> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract) {
             return base.Channel.GetClosestStationsAsync(userLatitude, userLongitude, numberOfStations, closestContract);
         }
         

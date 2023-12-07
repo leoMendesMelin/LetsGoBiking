@@ -20,7 +20,7 @@ namespace LetsGoBikingServer.Services
         Task<string> GetClosestContractAsync(double userLatitude, double userLongitude);
 
         [OperationContract]
-        Task<List<Station>> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
+        Task<Station> GetClosestStationsAsync(double userLatitude, double userLongitude, int numberOfStations, string closestContract);
 
         [OperationContract]
         Task<RouteResponse> GetRouteAsync(double startLat, double startLon, double endLat, double endLon, string typeRoute);

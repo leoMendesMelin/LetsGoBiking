@@ -43,7 +43,7 @@
   <xs:element name="GetClosestStationsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models" minOccurs="0" name="GetClosestStationsResult" nillable="true" type="q2:ArrayOfStation" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models" minOccurs="0" name="GetClosestStationsResult" nillable="true" type="q2:Station" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

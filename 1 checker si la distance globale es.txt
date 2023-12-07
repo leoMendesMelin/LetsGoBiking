@@ -1,0 +1,14 @@
+1: checker si la distance globale est supérieure à 20km
+
+	si oui : on fait le processus normal, on cherche la station la plus proche etc..
+	s'il n'y a pas de station proche alors l'itinéraire n'est pas possible
+
+	s'il n'y a pas de vélo dans la station alors il faut regarder la station plus proche +1 et ainsi de suite 	jusqu'à qu'il n'y ai plus de station possible, si pas de station possible, trajet impossible
+	Rechecker à la fin si le trajet du point d'origine jusqu'à la station + trajet à vélo + trjaet = pied est > à 	trajet total à pied
+Sinon
+	si  le trajet à pied + vélo + à pied final et regarder < à distance à pied
+		si oui alors on lance le processus à pied ensuite vélo ensuite à pied tout en faisant les mêmes 		étapes que 1.
+	sinon on fait le trajet à pied
+
+
+checker si le contract name a des station, s'il n'en a pas --> trajet impossible
