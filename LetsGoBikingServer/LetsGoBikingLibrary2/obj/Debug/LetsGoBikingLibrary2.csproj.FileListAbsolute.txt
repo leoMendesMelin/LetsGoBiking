@@ -8,3 +8,5 @@ C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\Let
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingLibrary2\obj\Debug\LetsGoBikingLibrary2.csproj.CopyComplete
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingLibrary2\obj\Debug\LetsGoBikingLibrary2.dll
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingLibrary2\obj\Debug\LetsGoBikingLibrary2.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingLibrary2\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingLibrary2\bin\Debug\System.Diagnostics.DiagnosticSource.xml

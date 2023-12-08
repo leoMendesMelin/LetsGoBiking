@@ -2,6 +2,12 @@
 using LetsGoBikingClientC_.RoutingServiceReference;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.ServiceModel.Channels;
+using Apache.NMS.ActiveMQ;
+using Apache.NMS;
+using ISession = Apache.NMS.ISession;
+using IMessage = Apache.NMS.IMessage;
 
 namespace LetsGoBikingClientC_
 {
@@ -11,31 +17,61 @@ namespace LetsGoBikingClientC_
         {
             Console.WriteLine("Hello World!");
             RoutingServiceClient routingClient = new RoutingServiceClient();
-            string start = "8-22 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
-            string end = "8-22 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
-
-            string endNotNecessaryBike = "Smile World Créteil, Centre Commercial Créteil Soleil, Av. de la France libre, 94000 Créteil";
+            string start = "8 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
+            string endAPiedSansBike = "8-22 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
+            string endEnVelo = "40-54 Rue des Sarrazins, 94000 Créteil";
+            string endNotNecessaryBike = "4 Av. du Président Wilson, 94340 Joinville-le-Pont";
 
             string casse = "Espace Sante, 13004 Marseille";
 
 
-            CompleteRoute completeRoute = await routingClient.GetCompleteRouteAsync(start, end);
-    
-            if(completeRoute.BikeRoute != null)
+            CompleteRoute completeRoute= await routingClient.GetCompleteRouteAsync(start, endEnVelo);
+
+
+            //afficher la route en utilisant displayRouteSegment
+            DisplayRouteSegment("Route à pied", completeRoute.WalkToStartStation) ;
+            DisplayRouteSegment("Route en vélo", completeRoute.BikeRoute);
+            DisplayRouteSegment("Route à pied", completeRoute.WalkToEnd);
+
+            string queueId = completeRoute.queueId; // Supposons que vous receviez l'ID de la file d'attente dans completeRoute
+            ReceiveStepsFromQueue(queueId);
+
+
+
+        }
+
+        static void ReceiveStepsFromQueue(string queueId)
+        {
+            string brokerUri = "tcp://localhost:61616"; // URI du broker ActiveMQ
+            IConnectionFactory factory = new ConnectionFactory(brokerUri);
+
+            using (IConnection connection = factory.CreateConnection())
+            using (ISession session = connection.CreateSession())
             {
-                //walk to start station
-                Console.WriteLine("WalkRoute to start station");
-                DisplayRouteSegment("WalkRoute", completeRoute.WalkToStartStation);
-                Console.WriteLine("BikeRoute");
-                DisplayRouteSegment("BikeRoute", completeRoute.BikeRoute);
-                Console.WriteLine("WalkRoute to end station");
-                DisplayRouteSegment("WalkRoute", completeRoute.WalkToEnd);
-            }
-            //elif
-            if(completeRoute.BikeRoute == null && completeRoute.WalkToStartStation !=null)
-            {
-                Console.WriteLine("WalkRoute to end adress because not necessary to get a bike");
-                DisplayRouteSegment("Total WalkRoute", completeRoute.WalkToStartStation);
+                IDestination destination = session.GetQueue(queueId);
+                using (IMessageConsumer consumer = session.CreateConsumer(destination))
+                {
+                    connection.Start();
+                    Console.WriteLine("En attente de messages de la file d'attente...");
+
+                    // Boucle de réception des messages
+                    IMessage message;
+                    while ((message = consumer.Receive(TimeSpan.FromSeconds(10))) != null)
+                    {
+                        ITextMessage textMessage = message as ITextMessage;
+                        if (textMessage != null)
+                        {
+                            // Traiter le message reçu
+                            Console.WriteLine("Message reçu: " + textMessage.Text);
+                            // Vous pouvez ici décomposer le message et l'afficher ou le traiter comme nécessaire
+                        }
+                        else
+                        {
+                            Console.WriteLine("Message non textuel reçu.");
+                        }
+                    }
+                    Console.WriteLine("Aucun message reçu après 10 secondes, fin de l'écoute.");
+                }
             }
         }
 

@@ -93,6 +93,7 @@
       <xs:element minOccurs="0" name="BikeRoute" nillable="true" type="tns:RouteResponse" />
       <xs:element minOccurs="0" name="WalkToEnd" nillable="true" type="tns:RouteResponse" />
       <xs:element minOccurs="0" name="WalkToStartStation" nillable="true" type="tns:RouteResponse" />
+      <xs:element minOccurs="0" name="queueId" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CompleteRoute" nillable="true" type="tns:CompleteRoute" />

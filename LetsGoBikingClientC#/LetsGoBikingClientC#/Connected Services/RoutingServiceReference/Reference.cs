@@ -727,6 +727,9 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private LetsGoBikingClientC_.RoutingServiceReference.RouteResponse WalkToStartStationField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string queueIdField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -776,6 +779,19 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string queueId {
+            get {
+                return this.queueIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.queueIdField, value) != true)) {
+                    this.queueIdField = value;
+                    this.RaisePropertyChanged("queueId");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -819,6 +835,12 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetCompleteRoute", ReplyAction="http://tempuri.org/IRoutingService/GetCompleteRouteResponse")]
         System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute> GetCompleteRouteAsync(string startAddress, string endAddress);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetCompleteRouteFromId", ReplyAction="http://tempuri.org/IRoutingService/GetCompleteRouteFromIdResponse")]
+        LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute GetCompleteRouteFromId(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRoutingService/GetCompleteRouteFromId", ReplyAction="http://tempuri.org/IRoutingService/GetCompleteRouteFromIdResponse")]
+        System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute> GetCompleteRouteFromIdAsync(string id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -886,6 +908,14 @@ namespace LetsGoBikingClientC_.RoutingServiceReference {
         
         public System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute> GetCompleteRouteAsync(string startAddress, string endAddress) {
             return base.Channel.GetCompleteRouteAsync(startAddress, endAddress);
+        }
+        
+        public LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute GetCompleteRouteFromId(string id) {
+            return base.Channel.GetCompleteRouteFromId(id);
+        }
+        
+        public System.Threading.Tasks.Task<LetsGoBikingClientC_.RoutingServiceReference.CompleteRoute> GetCompleteRouteFromIdAsync(string id) {
+            return base.Channel.GetCompleteRouteFromIdAsync(id);
         }
     }
 }

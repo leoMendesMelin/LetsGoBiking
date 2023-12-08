@@ -1,5 +1,4 @@
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\LetsGoBikingLibrary2.dll
-C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\LetsGoBikingProxy.exe
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
@@ -46,11 +45,10 @@ C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\Let
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\LetsGoBikingProxy.csproj.AssemblyReference.cache
-C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\LetsGoBikingProxy.csproj.SuggestedBindingRedirects.cache
-C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\LetsGoBikingProxy.exe.config
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\LetsGoBikingProxy.csproj.CoreCompileInputs.cache
-C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\LetsGoBikingProxy.exe
-C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\LetsGoBikingProxy.pdb
-C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\LetsGoBikingProxy.exe.config
-C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\LetsGoBikingProxy.pdb
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\LetsGoBikingProxy.csproj.CopyComplete
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\memory.exe.config
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\memory.exe
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\bin\Debug\memory.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\memory.exe
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingServer\LetsGoBikingProxy\obj\Debug\memory.pdb

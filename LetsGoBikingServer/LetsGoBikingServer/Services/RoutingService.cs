@@ -15,21 +15,36 @@ using LetsGoBikingServer.Utils;
 using LetsGoBikingServer.Exceptions;
 using System.Web.ModelBinding;
 using System.Collections;
+using System.Device.Location;
+using LetsGoBikingServer.Manager;
 
 namespace LetsGoBikingServer.Services
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 
     public class RoutingService : IRoutingService
     {
         private readonly HttpClient _httpClient = new HttpClient();
         private readonly ActiveMQService _activeMQService;
+        private readonly ItineraryCache itineraryCache = ItineraryCache.GetInstance();
+        //boolean pour savoir is activeMQ est lancé ou non
+        private bool isActiveMQ = true;
 
         private IStationProxyService _iStationService = StationProxyService.GetInstance();
         string apiKeyOpenStreet = "5b3ce3597851110001cf62481d3c3c09de44442abe0e719a6ce409e1";
         string apiKeyJcDecaux = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
         public RoutingService() {
-            _activeMQService = new ActiveMQService("tcp://localhost:61616", "LetGoBikingQueue");
+            //checkez si activeMQ est lancé
+            try
+            {
+                _activeMQService = new ActiveMQService("tcp://localhost:61616");
+
+            }catch(Exception e)
+            {
+                isActiveMQ = false;
+                Console.WriteLine("ActiveMQ n'est pas lancé");
+            }
+
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "LetsGoBkingLeo");
 
 
@@ -46,7 +61,7 @@ namespace LetsGoBikingServer.Services
      
             
                 
-            return locations.Length > 0 ? locations[0] : null; // on retourne le [0] soit la location avec la class la plus élevée 
+            return locations.Length > 0 ? locations[0] : throw new NoPositionFoundException("L'adresse donnée est incorrecte"); // on retourne le [0] soit la location avec la class la plus élevée 
         }
 
 
@@ -72,6 +87,7 @@ namespace LetsGoBikingServer.Services
 
             string requestUri = $"https://api.openrouteservice.org/v2/directions/{profile}?api_key={apiKeyOpenStreet}&start={startLon.ToString(System.Globalization.CultureInfo.InvariantCulture)},{startLat.ToString(System.Globalization.CultureInfo.InvariantCulture)}&end={endLon.ToString(System.Globalization.CultureInfo.InvariantCulture)},{endLat.ToString(System.Globalization.CultureInfo.InvariantCulture)}";
            
+            //affiche uri
             var response = await _httpClient.GetAsync(requestUri);
             if (response.IsSuccessStatusCode)
             {
@@ -126,13 +142,18 @@ namespace LetsGoBikingServer.Services
             RouteResponse bikeRoute = null;
             RouteResponse walkToEnd = null;
 
-            RouteResponse walkRouteItinery = null;
+            RouteResponse walkRouteItinerary = null;
 
             double totalTimeWalk = 0;
-            double totalTimeClassicItinery = 0;
+            double totalTimeClassicItinerary = 0;
 
             CompleteRoute completeRoute = null;
-
+            
+            if(this.itineraryCache.TryGetItinerary(startAddress, endAddress, out completeRoute))
+            {
+                Console.WriteLine("Itinéraire trouvé dans le cache");
+                return completeRoute;
+            }
             try
             {
                 //s'il y a un contract proche de la position d'arrivée et de départ alors un itinéraire est possible
@@ -142,14 +163,11 @@ namespace LetsGoBikingServer.Services
                 //on va faire l'itinéraire complet
                 try
                 {
-                    startStation = await GetClosestStationsAsync(startPosition.Lat, startPosition.Lon, 1, startContract);
+                    startStation = await GetClosestStationsAsync(startPosition.Lat, startPosition.Lon, 3, startContract);
 
-                    endStation = await GetClosestStationsAsync(endPosition.Lat, endPosition.Lon, 1, endContract);
+                    endStation = await GetClosestStationsAsync(endPosition.Lat, endPosition.Lon, 3, endContract);
                     //contract
-                    Console.WriteLine("Contrat de départ : " + startContract);
-                    Console.WriteLine("Contrat d'arrivée : " + endContract);
-                    Console.WriteLine("Station de départ : " + startStation.name);
-                    Console.WriteLine("Station d'arrivée : " + endStation.name);
+                 
                     //j'ai les stations les plus proches vu qu'il ya des bike diso dans les 2 stations départ arrivées
                     //maintenant on va faire l'itinéraire à pied pour aller jusqu'à la station de départ + vélo + à pied jusqu'à l'arrivé
                     walkToStartStation = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, startStation.position.Lat, startStation.position.Lon, "walking");
@@ -160,72 +178,61 @@ namespace LetsGoBikingServer.Services
                     routes.Add(bikeRoute);
                     routes.Add(walkToEnd);
                     //total time itinery classic 3 steps
-                    totalTimeClassicItinery = calculateTimeFromListRouteResponse(routes);
+                    totalTimeClassicItinerary = calculateTimeFromListRouteResponse(routes);
 
                     //faire le trajet à pied
                     //total time à pied du début à la fin
-                    walkRouteItinery = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, endPosition.Lat, endPosition.Lon, "walking");
-                    totalTimeWalk = calculateTimeFromListRouteResponse(new List<RouteResponse> { walkRouteItinery });
+                    walkRouteItinerary = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, endPosition.Lat, endPosition.Lon, "walking");
+                    totalTimeWalk = calculateTimeFromListRouteResponse(new List<RouteResponse> { walkRouteItinerary });
 
                     //si le temps total à pied est < au temps total en vélo alors on fait l'itinéraire à pied
                     //nom de méthode pour faire cela
-                    Console.WriteLine("Temps total itinéraire classique : " + totalTimeClassicItinery);
-                    Console.WriteLine("Temps total itinéraire à pied : " + totalTimeWalk);
+                    //Console.WriteLine("Temps total itinéraire classique : " + totalTimeClassicItinerary);
+                    //Console.WriteLine("Temps total itinéraire à pied : " + totalTimeWalk);
                     //total distance
 
-                    completeRoute = getCompleteRouteFromTime(totalTimeClassicItinery, totalTimeWalk, walkToStartStation, bikeRoute, walkToEnd, walkRouteItinery);
-                    if (completeRoute.BikeRoute != null)
+                    completeRoute = getCompleteRouteFromTime(totalTimeClassicItinerary, totalTimeWalk, walkToStartStation, bikeRoute, walkToEnd, walkRouteItinerary);
+                    
+                    this.itineraryCache.AddItinerary(startAddress,endAddress,completeRoute);
+
+                    try
                     {
-                        SendStepsToActiveMQClassicItinery(walkToStartStation,bikeRoute,walkToEnd, startAddress, endAddress, startPosition, endPosition, startStation,endStation);
-
+                        this._activeMQService.CreateQueueSendSteps(completeRoute);
                     }
-                    else
+                    catch (Exception e)
                     {
-                        SendStepsToActiveMQWalkItinery(walkToStartStation, startAddress, endAddress, startPosition, endPosition, startStation,endStation);
+                        Console.WriteLine("ActiveMQ est innaccessbile");
                     }
-                       
-
-
                 }
                 catch (NoStationFoundException e)
                 {
                     Console.WriteLine(e.Message);
-                    _activeMQService.SendMessage(e.Message);
+                    //_activeMQService.SendMessage(e.Message);
                     return null;
                 }
             }
             catch (DistanceTooGreatException e)
             {
                 Console.WriteLine(e.Message);
-                _activeMQService.SendMessage(e.Message);
+                //_activeMQService.SendMessage(e.Message);
                 return null;
             }
 
-            _activeMQService.SendMessage("Départ de l'itinéraire de " + startAddress);
-            _activeMQService.SendMessage("Marche vers la station de vélo");
-            _activeMQService.SendMessage("Trajet en vélo");
-            _activeMQService.SendMessage("Marche vers la destination finale");
-            _activeMQService.SendMessage("Arrivée à " + endAddress);
+       
 
+            
             return completeRoute;
 
             
         }
 
-        public void SendStepsToActiveMQWalkItinery(RouteResponse walkToStartStation, string startAddress, string endAddress, Position startPosition, Position endPosition, Station startStation, Station endStation)
-        {
 
-        }
 
-        private void SendStepsToActiveMQClassicItinery(RouteResponse walkToStartStation, RouteResponse bikeRoute, RouteResponse walkToEnd, string startAddress, string endAddress, Position startPosition, Position endPosition, Station startStation, Station endStation)
+        public CompleteRoute getCompleteRouteFromTime(double totalTimeClassicItinerary, double totalTimeWalk, RouteResponse walkToStartStation, RouteResponse bikeRoute, RouteResponse walkToEnd, RouteResponse walkRouteItinerary)
         {
-        }
-
-        public CompleteRoute getCompleteRouteFromTime(double totalTimeClassicItinery, double totalTimeWalk, RouteResponse walkToStartStation, RouteResponse bikeRoute, RouteResponse walkToEnd, RouteResponse walkRouteItinery)
-        {
-            if(totalTimeWalk < totalTimeClassicItinery)
+            if(totalTimeWalk < totalTimeClassicItinerary)
             {
-                return new CompleteRoute { WalkToStartStation = walkRouteItinery, BikeRoute = null, WalkToEnd = null };
+                return new CompleteRoute { WalkToStartStation = walkRouteItinerary, BikeRoute = null, WalkToEnd = null };
             }
             else
             {
@@ -316,22 +323,45 @@ namespace LetsGoBikingServer.Services
                 }
 
             }
-
-            var sortedStations = distances.OrderBy(kvp => kvp.Value)
+            //On récupère les stations les plus proches à vol d'oiseau
+            var sortedStationsByBirdFly = distances.OrderBy(kvp => kvp.Value)
                                           .Select(kvp => kvp.Key)
                                           .Take(numberOfStations)
                                           .ToList();
-            //je voudrais faire un appel de fonction à une fonction qui renvoie la station qui a des vélos disponibles
 
-            if(sortedStations.Count == 0)
+            if (sortedStationsByBirdFly.Count == 0)
             {
                 throw new NoStationFoundException("Aucune station n'a été trouvée à proximité de votre position");
             }
-            Station closestStation = GetFirstStationWithAvailableBike(sortedStations);
+            //Ensuite on renvoie la station qui est rééllement la plus proche grâce à l'api ORS
+            List<Station> sortedStationsByRealWalkingDistance = await SortedDistanceStationByWalking(sortedStationsByBirdFly, userPosition, "walking");
+
+            
+            Station closestStation = GetFirstStationWithAvailableBike(sortedStationsByRealWalkingDistance);
 
 
             return closestStation;
         }
+
+        public async Task<List<Station>> SortedDistanceStationByWalking(List<Station> stations, Position userPosition, string profile)
+        {
+            var stationDistances = new List<(Station station, double distance)>();
+
+            foreach (var station in stations)
+            {
+                RouteResponse walkRoute = await GetRouteAsync(userPosition.Lat, userPosition.Lon, station.position.Lat, station.position.Lon, profile);
+                double totalTimeWalk = calculateTimeFromListRouteResponse(new List<RouteResponse> { walkRoute });
+
+                stationDistances.Add((station, totalTimeWalk));
+            }
+
+            // Trier les stations en fonction de la distance de marche
+            stationDistances.Sort((x, y) => x.distance.CompareTo(y.distance));
+
+            // Récupérer les stations triées
+            return stationDistances.Select(sd => sd.station).ToList(); //ça permet de récupérer la liste des stations triées
+        }
+
 
         public Station GetFirstStationWithAvailableBike(List<Station> stations)
         {
@@ -347,25 +377,18 @@ namespace LetsGoBikingServer.Services
 
 
 
+      
+
+
+        //calculer la distance entre 2 positions avec geoCoordinate
         public double CalculateDistanceAsync(Position start, Position end)
         {
-            //Afficher les positions
-         
-            var R = 6371; // Rayon de la Terre en kilomètres
-            var dLat = DegreesToRadians(end.Lat - start.Lat);
-            var dLon = DegreesToRadians(end.Lon - start.Lon);
-            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Cos(DegreesToRadians(start.Lat)) * Math.Cos(DegreesToRadians(end.Lat)) *
-                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double result = R * c * 1000;
-            return result;
+            GeoCoordinate geoStart = new GeoCoordinate(start.Lat, start.Lon);
+            GeoCoordinate geoEnd = new GeoCoordinate(end.Lat, end.Lon);
+            return geoStart.GetDistanceTo(geoEnd);
         }
 
-        private double DegreesToRadians(double degrees)
-        {
-            return degrees * (Math.PI / 180);
-        }
+     
 
 
 

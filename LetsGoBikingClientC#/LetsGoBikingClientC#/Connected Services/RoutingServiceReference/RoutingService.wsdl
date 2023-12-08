@@ -38,6 +38,12 @@
   <wsdl:message name="IRoutingService_GetCompleteRoute_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCompleteRouteResponse" />
   </wsdl:message>
+  <wsdl:message name="IRoutingService_GetCompleteRouteFromId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCompleteRouteFromId" />
+  </wsdl:message>
+  <wsdl:message name="IRoutingService_GetCompleteRouteFromId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCompleteRouteFromIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="IRoutingService">
     <wsdl:operation name="GetPosition">
       <wsdl:input wsaw:Action="http://tempuri.org/IRoutingService/GetPosition" message="tns:IRoutingService_GetPosition_InputMessage" />
@@ -58,6 +64,10 @@
     <wsdl:operation name="GetCompleteRoute">
       <wsdl:input wsaw:Action="http://tempuri.org/IRoutingService/GetCompleteRoute" message="tns:IRoutingService_GetCompleteRoute_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRoutingService/GetCompleteRouteResponse" message="tns:IRoutingService_GetCompleteRoute_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteRouteFromId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRoutingService/GetCompleteRouteFromId" message="tns:IRoutingService_GetCompleteRouteFromId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRoutingService/GetCompleteRouteFromIdResponse" message="tns:IRoutingService_GetCompleteRouteFromId_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IRoutingService" type="tns:IRoutingService">
@@ -100,6 +110,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCompleteRoute">
       <soap:operation soapAction="http://tempuri.org/IRoutingService/GetCompleteRoute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteRouteFromId">
+      <soap:operation soapAction="http://tempuri.org/IRoutingService/GetCompleteRouteFromId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

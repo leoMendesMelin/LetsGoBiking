@@ -1,9 +1,6 @@
-﻿using LetsGoBikingLibrary2.Utils;
+﻿ // Assurez-vous d'avoir cette référence
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using LetsGoBikingLibrary2.Utils;
 
 namespace LetsGoBikingLibrary2.Models
 {

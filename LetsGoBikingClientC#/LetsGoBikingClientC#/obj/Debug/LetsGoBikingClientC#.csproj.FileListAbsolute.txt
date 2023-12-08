@@ -5,3 +5,9 @@ C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\L
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\LetsGoBikingClientC#.pdb
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\obj\Debug\LetsGoBikingClientC#.exe
 C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\obj\Debug\LetsGoBikingClientC#.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\Apache.NMS.ActiveMQ.dll
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\Apache.NMS.dll
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\ICSharpCode.SharpZipLib.pdb
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\bin\Debug\ICSharpCode.SharpZipLib.xml
+C:\Users\leome\Documents\polytech\s7\middlew\LetsGoBiking\LetsGoBikingClientC#\LetsGoBikingClientC#\obj\Debug\LetsGoBikingClientC#.csproj.CopyComplete

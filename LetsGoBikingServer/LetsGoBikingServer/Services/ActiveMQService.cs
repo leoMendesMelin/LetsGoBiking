@@ -1,27 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Apache.NMS;
 using Apache.NMS.ActiveMQ;
 using Apache.NMS.ActiveMQ.Commands;
-using System;
-using System.Web;
+using LetsGoBikingLibrary2.Models;
+using Microsoft.SqlServer.Server;
 
 namespace LetsGoBikingServer.Services
 {
     public class ActiveMQService
     {
         private readonly string _brokerUri;
-        private readonly string _queueName;
         private IConnectionFactory _connectionFactory;
         private IConnection _connection;
         private ISession _session;
-        private IMessageProducer _producer;
 
-        public ActiveMQService(string brokerUri, string queueName)
+        public ActiveMQService(string brokerUri)
         {
             _brokerUri = brokerUri;
-            _queueName = queueName;
             InitializeActiveMQ();
         }
 
@@ -31,14 +26,56 @@ namespace LetsGoBikingServer.Services
             _connection = _connectionFactory.CreateConnection();
             _connection.Start();
             _session = _connection.CreateSession();
-            IDestination destination = _session.GetQueue(_queueName);
-            _producer = _session.CreateProducer(destination);
         }
 
-        public void SendMessage(string messageText)
+        public string CreateQueueSendSteps(CompleteRoute route)
         {
-            ITextMessage message = _session.CreateTextMessage(messageText);
-            _producer.Send(message);
+            string queueId = Guid.NewGuid().ToString();
+            IDestination destination = _session.GetQueue(queueId);
+            route.queueId = queueId;
+
+            if (route.WalkToStartStation != null)
+            {
+                CreateTheMessageToSend(route.WalkToStartStation,route.queueId, "Trajet à pied : ");
+            }
+            if (route.BikeRoute != null)
+            {
+                CreateTheMessageToSend(route.BikeRoute, route.queueId,"Trajet à vélo jusqu'à la station d'arrivée : ");
+            }
+            if (route.WalkToEnd != null)
+            {
+                CreateTheMessageToSend(route.WalkToEnd, route.queueId,"Trajet à pied jusqu'à l'adresse d'arrivée : ");
+            }
+            // Pas besoin de créer un producer ici, car il sera créé lors de l'envoi du message.
+            return queueId;
+        }
+
+        public void CreateTheMessageToSend(RouteResponse route, string queueId,string typeRoute)
+        {
+            foreach (var feature in route.Features)
+            {
+                foreach (var segment in feature.Properties.Segments)
+                {
+                    foreach (var step in segment.Steps)
+                    {
+                        string messageStep = typeRoute + step.Instruction + " " + step.Distance + " " + step.Duration + " " +
+                                             step.StartLatitude + " " + step.StartLongitude + " " +
+                                             step.EndLatitude + " " + step.EndLongitude + " " + step.Type;
+
+                        SendMessage(queueId, messageStep);
+                    }
+                }
+            }
+        }
+
+        public void SendMessage(string queueId, string messageText)
+        {
+            IDestination destination = _session.GetQueue(queueId);
+            using (IMessageProducer producer = _session.CreateProducer(destination))
+            {
+                ITextMessage message = _session.CreateTextMessage(messageText);
+                producer.Send(message);
+            }
         }
 
         public void Dispose()
