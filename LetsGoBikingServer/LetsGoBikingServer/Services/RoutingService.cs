@@ -193,6 +193,18 @@ namespace LetsGoBikingServer.Services
 
                     completeRoute = getCompleteRouteFromTime(totalTimeClassicItinerary, totalTimeWalk, walkToStartStation, bikeRoute, walkToEnd, walkRouteItinerary);
                     
+                    completeRoute.StartStation = startStation;
+                    completeRoute.endPosition = endPosition;
+                    
+                    //si le chemin est un intinéraire classic alors on va mettre les stations de départ et d'arrivée
+                    if (completeRoute.BikeRoute != null)
+                    {
+                        completeRoute.EndStation = endStation;
+                        completeRoute.startPosition = startPosition;
+
+                    }
+                    
+
                     this.itineraryCache.AddItinerary(startAddress,endAddress,completeRoute);
 
                     try

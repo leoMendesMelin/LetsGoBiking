@@ -14,6 +14,11 @@ namespace LetsGoBikingLibrary2.Models
         public string Id { get; private set; }
         public string queueId { get; set; }
 
+        public Position startPosition { get; set; }
+        public Position endPosition { get; set; }
+        public Station StartStation { get; set; }
+        public Station EndStation { get; set; }
+
         public RouteResponse WalkToStartStation { get; set; }
         public RouteResponse BikeRoute { get; set; }
         public RouteResponse WalkToEnd { get; set; }

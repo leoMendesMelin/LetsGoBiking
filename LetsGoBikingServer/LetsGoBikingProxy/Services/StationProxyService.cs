@@ -40,7 +40,7 @@ namespace LetsGoBikingProxy.Services
                 var content = await response.Content.ReadAsStringAsync();
                 var stations = JsonConvert.DeserializeObject<List<Station>>(content);
 
-                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(5) };
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(100) };
                 _cache.Add(new CacheItem(cacheKey, stations), policy);
 
                 return stations;

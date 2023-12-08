@@ -40,7 +40,7 @@ namespace LetsGoBikingServer.Manager
         public void AddItinerary(string startAddress, string endAddress, CompleteRoute route)
         {
             string key = GenerateKey(startAddress, endAddress);
-            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(5) }; // Exemple de durée d'expiration
+            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(100) }; // Exemple de durée d'expiration
             _cache.Add(new CacheItem(key, route), policy);
         }
 

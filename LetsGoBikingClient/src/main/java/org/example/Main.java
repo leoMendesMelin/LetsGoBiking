@@ -1,12 +1,28 @@
 package org.example;
-import java.util.concurrent.ExecutionException;
-import com.soap.ws.client.generated.*;
 
-import javax.jms.*;
+import com.soap.ws.client.generated.*; // Remplacez ceci par votre package généré
 
-import org.apache.activemq.ActiveMQConnectionFactory;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import com.soap.ws.client.generated.*;
+
+import javax.jms.JMSException;
+import javax.swing.JFrame;
+
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.painter.CompoundPainter;
+import org.jxmapviewer.painter.Painter;
+import org.jxmapviewer.viewer.DefaultTileFactory;
+import org.jxmapviewer.viewer.DefaultWaypoint;
+import org.jxmapviewer.viewer.GeoPosition;
+import org.jxmapviewer.viewer.TileFactoryInfo;
+import org.jxmapviewer.viewer.Waypoint;
+import org.jxmapviewer.viewer.WaypointPainter;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException, JMSException {
@@ -28,8 +44,14 @@ public class Main {
 
         CompleteRoute route = portRouting.getCompleteRoute(start, endEnVelo);
 
+
+        // Attendre la réponse
+
+
+
         // Utiliser l'ID de la queue de la réponse pour démarrer ActiveMQService
         try{
+
             ActiveMQService activeMQService = new ActiveMQService("tcp://localhost:61616");
             activeMQService.start(route.getQueueId().getValue());  // Utilisation de l'ID de la queue spécifique
             activeMQService.receiveMessages();
@@ -40,9 +62,13 @@ public class Main {
             showStepsFromCompleteRoute(route);
         }
 
+        Map.launchMap(route);
+
 
 
     }
+
+
 
     public static void showStepsFromCompleteRoute(CompleteRoute route) {
         if(route.getBikeRoute().getValue()!=null){
@@ -69,6 +95,5 @@ public class Main {
             }
         }
     }
-
 
 }
