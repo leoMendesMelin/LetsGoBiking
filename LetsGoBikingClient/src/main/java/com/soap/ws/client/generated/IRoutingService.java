@@ -61,13 +61,13 @@ public interface IRoutingService {
      * @param numberOfStations
      * @param closestContract
      * @return
-     *     returns com.soap.ws.client.generated.ArrayOfStation
+     *     returns com.soap.ws.client.generated.Station
      */
     @WebMethod(operationName = "GetClosestStations", action = "http://tempuri.org/IRoutingService/GetClosestStations")
     @WebResult(name = "GetClosestStationsResult", targetNamespace = "http://tempuri.org/")
     @RequestWrapper(localName = "GetClosestStations", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestStations")
     @ResponseWrapper(localName = "GetClosestStationsResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetClosestStationsResponse")
-    public ArrayOfStation getClosestStations(
+    public Station getClosestStations(
         @WebParam(name = "userLatitude", targetNamespace = "http://tempuri.org/")
         Double userLatitude,
         @WebParam(name = "userLongitude", targetNamespace = "http://tempuri.org/")

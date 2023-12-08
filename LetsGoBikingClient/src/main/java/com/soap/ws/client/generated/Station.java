@@ -4,6 +4,7 @@ package com.soap.ws.client.generated;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlType;
 
@@ -19,10 +20,13 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="available_bike_stands" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
+ *         &lt;element name="available_bikes" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
  *         &lt;element name="contractName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="number" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
  *         &lt;element name="position" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}Position" minOccurs="0"/&gt;
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -34,15 +38,22 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Station", propOrder = {
     "address",
+    "availableBikeStands",
+    "availableBikes",
     "contractName",
     "name",
     "number",
-    "position"
+    "position",
+    "status"
 })
 public class Station {
 
     @XmlElementRef(name = "address", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> address;
+    @XmlElement(name = "available_bike_stands")
+    protected Integer availableBikeStands;
+    @XmlElement(name = "available_bikes")
+    protected Integer availableBikes;
     @XmlElementRef(name = "contractName", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> contractName;
     @XmlElementRef(name = "name", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
@@ -50,6 +61,8 @@ public class Station {
     protected Integer number;
     @XmlElementRef(name = "position", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<Position> position;
+    @XmlElementRef(name = "status", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> status;
 
     /**
      * Obtient la valeur de la propriété address.
@@ -73,6 +86,54 @@ public class Station {
      */
     public void setAddress(JAXBElement<String> value) {
         this.address = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété availableBikeStands.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getAvailableBikeStands() {
+        return availableBikeStands;
+    }
+
+    /**
+     * Définit la valeur de la propriété availableBikeStands.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setAvailableBikeStands(Integer value) {
+        this.availableBikeStands = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété availableBikes.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getAvailableBikes() {
+        return availableBikes;
+    }
+
+    /**
+     * Définit la valeur de la propriété availableBikes.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setAvailableBikes(Integer value) {
+        this.availableBikes = value;
     }
 
     /**
@@ -169,6 +230,30 @@ public class Station {
      */
     public void setPosition(JAXBElement<Position> value) {
         this.position = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété status.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStatus() {
+        return status;
+    }
+
+    /**
+     * Définit la valeur de la propriété status.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStatus(JAXBElement<String> value) {
+        this.status = value;
     }
 
 }

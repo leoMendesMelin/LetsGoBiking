@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="BikeRoute" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}RouteResponse" minOccurs="0"/&gt;
  *         &lt;element name="WalkToEnd" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}RouteResponse" minOccurs="0"/&gt;
  *         &lt;element name="WalkToStartStation" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}RouteResponse" minOccurs="0"/&gt;
+ *         &lt;element name="queueId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,7 +34,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "CompleteRoute", propOrder = {
     "bikeRoute",
     "walkToEnd",
-    "walkToStartStation"
+    "walkToStartStation",
+    "queueId"
 })
 public class CompleteRoute {
 
@@ -43,6 +45,8 @@ public class CompleteRoute {
     protected JAXBElement<RouteResponse> walkToEnd;
     @XmlElementRef(name = "WalkToStartStation", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<RouteResponse> walkToStartStation;
+    @XmlElementRef(name = "queueId", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> queueId;
 
     /**
      * Obtient la valeur de la propriété bikeRoute.
@@ -114,6 +118,30 @@ public class CompleteRoute {
      */
     public void setWalkToStartStation(JAXBElement<RouteResponse> value) {
         this.walkToStartStation = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété queueId.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getQueueId() {
+        return queueId;
+    }
+
+    /**
+     * Définit la valeur de la propriété queueId.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setQueueId(JAXBElement<String> value) {
+        this.queueId = value;
     }
 
 }

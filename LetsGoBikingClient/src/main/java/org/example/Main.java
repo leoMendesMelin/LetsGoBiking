@@ -16,69 +16,59 @@ public class Main {
         RoutingService routingService = new RoutingService();
         IRoutingService portRouting = routingService.getBasicHttpBindingIRoutingService();
 
-        String start = "Avenue de la France Libre, Créteil";
-        String end = "Avenue du Maréchal de Lattre de Tassigny, Créteil";
+        String start = "8 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
+        String endAPiedSansBike = "8-22 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
+        String endEnVelo = "40-54 Rue des Sarrazins, 94000 Créteil";
+        String endNotNecessaryBike = "4 Av. du Président Wilson, 94340 Joinville-le-Pont";
+
+        String casse = "Espace Sante, 13004 Marseille";
 
         // Appeler le service et obtenir la route complète de manière asynchrone
-        CompleteRoute route = portRouting.getCompleteRoute(start, end);
 
-        if (route != null) {
-            // Afficher les détails de l'itinéraire
-            displayRouteSegment("Marche jusqu'à la station de départ", route.getWalkToStartStation().getValue());
-            displayRouteSegment("Trajet en vélo", route.getBikeRoute().getValue());
-            displayRouteSegment("Marche de la station d'arrivée à la destination", route.getWalkToEnd().getValue());
+
+        CompleteRoute route = portRouting.getCompleteRoute(start, endEnVelo);
+
+        // Utiliser l'ID de la queue de la réponse pour démarrer ActiveMQService
+        try{
+            ActiveMQService activeMQService = new ActiveMQService("tcp://localhost:61616");
+            activeMQService.start(route.getQueueId().getValue());  // Utilisation de l'ID de la queue spécifique
+            activeMQService.receiveMessages();
+            activeMQService.stop();
+        }
+        catch (Exception e){
+            System.out.println("ActiceMQService n'est pas dispoible");
+            showStepsFromCompleteRoute(route);
         }
 
-        ActiveMQService activeMQService = new ActiveMQService("tcp://localhost:61616", "LetGoBikingQueue");
-        //MapService mapService = new MapService();
 
-        // Exécution des services
-        activeMQService.start();
-        RouteResponse routeData = activeMQService.receiveMessages();
-        activeMQService.stop();
 
-        if (routeData != null) {
-            //mapService.displayRoute();
-        }
     }
 
-    static void displayRouteSegment(String description, RouteResponse routeSegment) {
-        if (routeSegment != null && routeSegment.getFeatures() != null && !routeSegment.getFeatures().isNil()) {
-            double totalDistance = routeSegment.getFeatures().getValue().getFeature().stream()
-                    .mapToDouble(f -> f.getProperties().getValue().getSummary().getValue().getDistance())
-                    .sum();
-            double totalTime = routeSegment.getFeatures().getValue().getFeature().stream()
-                    .mapToDouble(f -> f.getProperties().getValue().getSummary().getValue().getDuration())
-                    .sum();
-
-            System.out.println(description + ":");
-            System.out.println("- Distance: " + totalDistance + " m");
-            System.out.println("- Durée: " + formatDuration(totalTime));
-        } else {
-            System.out.println(description + " n'est pas disponible.");
+    public static void showStepsFromCompleteRoute(CompleteRoute route) {
+        if(route.getBikeRoute().getValue()!=null){
+            showStepsFromRouteResponse(route.getWalkToStartStation().getValue(),"Trajet à pied : ");
+            showStepsFromRouteResponse(route.getBikeRoute().getValue(),"Trajet en vélo : ");
+            showStepsFromRouteResponse(route.getWalkToEnd().getValue(),"Trajet à pied : ");
+        }else{
+            showStepsFromRouteResponse(route.getWalkToStartStation().getValue(),"Trajet à pied : ");
         }
     }
 
-    static String formatDuration(double totalSeconds) {
-        long seconds = (long) totalSeconds % 60;
-        long minutes = (long) (totalSeconds / 60) % 60;
-        long hours = (long) (totalSeconds / (60 * 60)) % 24;
+    public static void showStepsFromRouteResponse(RouteResponse value, String typeRoute) {
+        for (Feature feature : value.getFeatures().getValue().getFeature()) {
+            for (Segment segment : feature.getProperties().getValue().getSegments().getValue().getSegment()) {
+                for (Step step : segment.getSteps().getValue().getStep()) {
+                    String messageStep = typeRoute + " " + step.getInstruction().getValue() + " " +
+                            step.getDistance() + " " + step.getDuration() + " " +
+                            step.getStartLatitude() + " " + step.getStartLongitude() + " " +
+                            step.getEndLatitude() + " " + step.getEndLongitude() + " " +
+                            step.getType();
+                    System.out.println(messageStep);
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    static void receiveMessages(MessageConsumer consumer) throws JMSException {
-        while (true) {
-            Message message = consumer.receive(1000);  // Attendre le message pendant 1 seconde
-
-            if (message instanceof TextMessage) {
-                TextMessage textMessage = (TextMessage) message;
-                String text = textMessage.getText();
-                System.out.println("Message reçu: " + text);
-            } else if (message == null) {
-                System.out.println("Aucun nouveau message. Fin de l'attente.");
-                break;
+                }
             }
         }
     }
+
+
 }

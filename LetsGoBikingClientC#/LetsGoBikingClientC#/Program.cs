@@ -17,6 +17,7 @@ namespace LetsGoBikingClientC_
         {
             Console.WriteLine("Hello World!");
             RoutingServiceClient routingClient = new RoutingServiceClient();
+            string endLouis = "31 Mnt de la Chapelle, 04120 Peyroules";
             string start = "8 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
             string endAPiedSansBike = "8-22 Rue de Rocroy, 94100 Saint-Maur-des-Fossés";
             string endEnVelo = "40-54 Rue des Sarrazins, 94000 Créteil";
@@ -25,7 +26,7 @@ namespace LetsGoBikingClientC_
             string casse = "Espace Sante, 13004 Marseille";
 
 
-            CompleteRoute completeRoute= await routingClient.GetCompleteRouteAsync(start, endEnVelo);
+            CompleteRoute completeRoute= await routingClient.GetCompleteRouteAsync(start, endLouis);
 
 
             //afficher la route en utilisant displayRouteSegment

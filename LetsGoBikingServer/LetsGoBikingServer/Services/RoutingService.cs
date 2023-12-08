@@ -240,6 +240,8 @@ namespace LetsGoBikingServer.Services
             }
         }
 
+        //y'a une attribut dans la classe routeResponse qui s'appelle summary et qui contient le temps total
+
         public double calculateTimeFromListRouteResponse(List<RouteResponse> routes)
         {
             double result = 0;

@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="GetClosestStationsResult" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}ArrayOfStation" minOccurs="0"/&gt;
+ *         &lt;element name="GetClosestStationsResult" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}Station" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,17 +36,17 @@ import javax.xml.bind.annotation.XmlType;
 public class GetClosestStationsResponse {
 
     @XmlElementRef(name = "GetClosestStationsResult", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
-    protected JAXBElement<ArrayOfStation> getClosestStationsResult;
+    protected JAXBElement<Station> getClosestStationsResult;
 
     /**
      * Obtient la valeur de la propriété getClosestStationsResult.
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link ArrayOfStation }{@code >}
+     *     {@link JAXBElement }{@code <}{@link Station }{@code >}
      *     
      */
-    public JAXBElement<ArrayOfStation> getGetClosestStationsResult() {
+    public JAXBElement<Station> getGetClosestStationsResult() {
         return getClosestStationsResult;
     }
 
@@ -55,10 +55,10 @@ public class GetClosestStationsResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link ArrayOfStation }{@code >}
+     *     {@link JAXBElement }{@code <}{@link Station }{@code >}
      *     
      */
-    public void setGetClosestStationsResult(JAXBElement<ArrayOfStation> value) {
+    public void setGetClosestStationsResult(JAXBElement<Station> value) {
         this.getClosestStationsResult = value;
     }
 
