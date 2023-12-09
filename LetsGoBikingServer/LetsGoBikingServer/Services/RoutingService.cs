@@ -154,81 +154,67 @@ namespace LetsGoBikingServer.Services
                 Console.WriteLine("Itinéraire trouvé dans le cache");
                 return completeRoute;
             }
+            
+            //s'il y a un contract proche de la position d'arrivée et de départ alors un itinéraire est possible
+            //Si la distance entre la position et le user > 40km alors on ne peut pas faire l'itinéraire
+            startContract = await GetClosestContractAsync(startPosition.Lat, startPosition.Lon);
+            endContract = await GetClosestContractAsync(endPosition.Lat, endPosition.Lon);
+            //on va faire l'itinéraire complet
+                
+            startStation = await GetClosestStationsAsync(startPosition.Lat, startPosition.Lon, 3, startContract);
+
+            endStation = await GetClosestStationsAsync(endPosition.Lat, endPosition.Lon, 3, endContract);
+            //contract
+                 
+            //j'ai les stations les plus proches vu qu'il ya des bike diso dans les 2 stations départ arrivées
+            //maintenant on va faire l'itinéraire à pied pour aller jusqu'à la station de départ + vélo + à pied jusqu'à l'arrivé
+            walkToStartStation = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, startStation.position.Lat, startStation.position.Lon, "walking");
+            bikeRoute = await this.GetRouteAsync(startStation.position.Lat, startStation.position.Lon, endStation.position.Lat, endStation.position.Lon, "cycling");
+            walkToEnd = await this.GetRouteAsync(endStation.position.Lat, endStation.position.Lon, endPosition.Lat, endPosition.Lon, "walking");
+            List<RouteResponse> routes = new List<RouteResponse>();
+            routes.Add(walkToStartStation);
+            routes.Add(bikeRoute);
+            routes.Add(walkToEnd);
+            //total time itinery classic 3 steps
+            totalTimeClassicItinerary = calculateTimeFromListRouteResponse(routes);
+
+            //faire le trajet à pied
+            //total time à pied du début à la fin
+            walkRouteItinerary = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, endPosition.Lat, endPosition.Lon, "walking");
+            totalTimeWalk = calculateTimeFromListRouteResponse(new List<RouteResponse> { walkRouteItinerary });
+
+            //si le temps total à pied est < au temps total en vélo alors on fait l'itinéraire à pied
+            //nom de méthode pour faire cela
+            //Console.WriteLine("Temps total itinéraire classique : " + totalTimeClassicItinerary);
+            //Console.WriteLine("Temps total itinéraire à pied : " + totalTimeWalk);
+            //total distance
+
+            completeRoute = getCompleteRouteFromTime(totalTimeClassicItinerary, totalTimeWalk, walkToStartStation, bikeRoute, walkToEnd, walkRouteItinerary);
+                    
+            completeRoute.startPosition = startPosition;
+            completeRoute.endPosition = endPosition;
+                    
+            //si le chemin est un intinéraire classic alors on va mettre les stations de départ et d'arrivée
+            if (completeRoute.BikeRoute != null)
+            {
+                completeRoute.StartStation= startStation;
+                completeRoute.EndStation = endStation;
+
+            }
+                    
+
+            this.itineraryCache.AddItinerary(startAddress,endAddress,completeRoute);
+
             try
             {
-                //s'il y a un contract proche de la position d'arrivée et de départ alors un itinéraire est possible
-                //Si la distance entre la position et le user > 40km alors on ne peut pas faire l'itinéraire
-                startContract = await GetClosestContractAsync(startPosition.Lat, startPosition.Lon);
-                endContract = await GetClosestContractAsync(endPosition.Lat, endPosition.Lon);
-                //on va faire l'itinéraire complet
-                try
-                {
-                    startStation = await GetClosestStationsAsync(startPosition.Lat, startPosition.Lon, 3, startContract);
-
-                    endStation = await GetClosestStationsAsync(endPosition.Lat, endPosition.Lon, 3, endContract);
-                    //contract
-                 
-                    //j'ai les stations les plus proches vu qu'il ya des bike diso dans les 2 stations départ arrivées
-                    //maintenant on va faire l'itinéraire à pied pour aller jusqu'à la station de départ + vélo + à pied jusqu'à l'arrivé
-                    walkToStartStation = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, startStation.position.Lat, startStation.position.Lon, "walking");
-                    bikeRoute = await this.GetRouteAsync(startStation.position.Lat, startStation.position.Lon, endStation.position.Lat, endStation.position.Lon, "cycling");
-                    walkToEnd = await this.GetRouteAsync(endStation.position.Lat, endStation.position.Lon, endPosition.Lat, endPosition.Lon, "walking");
-                    List<RouteResponse> routes = new List<RouteResponse>();
-                    routes.Add(walkToStartStation);
-                    routes.Add(bikeRoute);
-                    routes.Add(walkToEnd);
-                    //total time itinery classic 3 steps
-                    totalTimeClassicItinerary = calculateTimeFromListRouteResponse(routes);
-
-                    //faire le trajet à pied
-                    //total time à pied du début à la fin
-                    walkRouteItinerary = await this.GetRouteAsync(startPosition.Lat, startPosition.Lon, endPosition.Lat, endPosition.Lon, "walking");
-                    totalTimeWalk = calculateTimeFromListRouteResponse(new List<RouteResponse> { walkRouteItinerary });
-
-                    //si le temps total à pied est < au temps total en vélo alors on fait l'itinéraire à pied
-                    //nom de méthode pour faire cela
-                    //Console.WriteLine("Temps total itinéraire classique : " + totalTimeClassicItinerary);
-                    //Console.WriteLine("Temps total itinéraire à pied : " + totalTimeWalk);
-                    //total distance
-
-                    completeRoute = getCompleteRouteFromTime(totalTimeClassicItinerary, totalTimeWalk, walkToStartStation, bikeRoute, walkToEnd, walkRouteItinerary);
-                    
-                    completeRoute.startPosition = startPosition;
-                    completeRoute.endPosition = endPosition;
-                    
-                    //si le chemin est un intinéraire classic alors on va mettre les stations de départ et d'arrivée
-                    if (completeRoute.BikeRoute != null)
-                    {
-                        completeRoute.StartStation= startStation;
-                        completeRoute.EndStation = endStation;
-
-                    }
-                    
-
-                    this.itineraryCache.AddItinerary(startAddress,endAddress,completeRoute);
-
-                    try
-                    {
-                        this._activeMQService.CreateQueueSendSteps(completeRoute);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("ActiveMQ est innaccessbile");
-                    }
-                }
-                catch (NoStationFoundException e)
-                {
-                    Console.WriteLine(e.Message);
-                    //_activeMQService.SendMessage(e.Message);
-                    return null;
-                }
+                this._activeMQService.CreateQueueSendSteps(completeRoute);
             }
-            catch (DistanceTooGreatException e)
+            catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                //_activeMQService.SendMessage(e.Message);
-                return null;
+                Console.WriteLine("ActiveMQ est innaccessbile");
             }
+               
+            
 
        
 
