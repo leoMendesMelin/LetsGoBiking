@@ -48,7 +48,7 @@ public class RoutePainter implements Painter<JXMapViewer>
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // do the drawing
-        g.setColor(Color.RED);
+        g.setColor(color);
         g.setStroke(new BasicStroke(4));
 
         drawRoute(g, map);

@@ -2,17 +2,23 @@ package org.example;
 
 import com.soap.ws.client.generated.RouteResponse;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.w3c.dom.Text;
 
 import javax.jms.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActiveMQService {
     private String brokerUrl;
     private Connection connection;
     private Session session;
     private MessageConsumer consumer;
+    private List<String> listInstructions;
+
 
     public ActiveMQService(String brokerUrl) {
         this.brokerUrl = brokerUrl;
+        this.listInstructions = new ArrayList<>();
     }
 
     public void start(String queueId) throws JMSException {
@@ -25,7 +31,7 @@ public class ActiveMQService {
         System.out.println("Connexion à ActiveMQ démarrée sur la queue: " + queueId);
     }
 
-    public void receiveMessages() throws JMSException {
+    public void receiveMessages(Map map) throws JMSException {
         try {
             while (true) {
                 Message message = consumer.receive(1000); // Attendre le message pendant 1000 ms (1 seconde)
@@ -36,11 +42,13 @@ public class ActiveMQService {
                 if (message instanceof TextMessage) {
                     TextMessage textMessage = (TextMessage) message;
                     String text = textMessage.getText();
+                    listInstructions.add(text);
                     System.out.println("Message reçu: " + text);
                 } else {
                     System.out.println("Message reçu n'est pas un message texte.");
                 }
             }
+            map.setSteps(listInstructions);
         } catch (JMSException e) {
             System.err.println("Exception lors de la réception du message: " + e.getMessage());
             throw e;
@@ -52,4 +60,5 @@ public class ActiveMQService {
         connection.close();
         System.out.println("Connexion à ActiveMQ arrêtée.");
     }
+
 }

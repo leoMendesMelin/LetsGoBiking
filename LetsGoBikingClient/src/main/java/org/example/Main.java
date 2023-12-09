@@ -47,6 +47,7 @@ public class Main {
 
         // Attendre la réponse
 
+        Map map = Map.getInstance();
 
 
         // Utiliser l'ID de la queue de la réponse pour démarrer ActiveMQService
@@ -54,33 +55,39 @@ public class Main {
 
             ActiveMQService activeMQService = new ActiveMQService("tcp://localhost:61616");
             activeMQService.start(route.getQueueId().getValue());  // Utilisation de l'ID de la queue spécifique
-            activeMQService.receiveMessages();
+            map.launchMap(route);
+            activeMQService.receiveMessages(map);
             activeMQService.stop();
+
         }
         catch (Exception e){
             System.out.println("ActiceMQService n'est pas dispoible");
-            showStepsFromCompleteRoute(route);
+            List<String> steps = showStepsFromCompleteRoute(route);
+            map.launchMap(route);
+            map.setSteps(steps);
+
         }
-
-        Map.launchMap(route);
-
 
 
     }
 
 
 
-    public static void showStepsFromCompleteRoute(CompleteRoute route) {
-        if(route.getBikeRoute().getValue()!=null){
-            showStepsFromRouteResponse(route.getWalkToStartStation().getValue(),"Trajet à pied : ");
-            showStepsFromRouteResponse(route.getBikeRoute().getValue(),"Trajet en vélo : ");
-            showStepsFromRouteResponse(route.getWalkToEnd().getValue(),"Trajet à pied : ");
-        }else{
-            showStepsFromRouteResponse(route.getWalkToStartStation().getValue(),"Trajet à pied : ");
+
+    public static List<String> showStepsFromCompleteRoute(CompleteRoute route) {
+        List<String> listInstructions = new ArrayList<>();
+        if (route.getBikeRoute().getValue() != null) {
+            listInstructions.addAll(showStepsFromRouteResponse(route.getWalkToStartStation().getValue(), "Trajet à pied : "));
+            listInstructions.addAll(showStepsFromRouteResponse(route.getBikeRoute().getValue(), "Trajet en vélo : "));
+            listInstructions.addAll(showStepsFromRouteResponse(route.getWalkToEnd().getValue(), "Trajet à pied : "));
+        } else {
+            listInstructions.addAll(showStepsFromRouteResponse(route.getWalkToStartStation().getValue(), "Trajet à pied : "));
         }
+        return listInstructions;
     }
 
-    public static void showStepsFromRouteResponse(RouteResponse value, String typeRoute) {
+    public static List<String> showStepsFromRouteResponse(RouteResponse value, String typeRoute) {
+        List<String> result = new ArrayList<>();
         for (Feature feature : value.getFeatures().getValue().getFeature()) {
             for (Segment segment : feature.getProperties().getValue().getSegments().getValue().getSegment()) {
                 for (Step step : segment.getSteps().getValue().getStep()) {
@@ -89,11 +96,12 @@ public class Main {
                             step.getStartLatitude() + " " + step.getStartLongitude() + " " +
                             step.getEndLatitude() + " " + step.getEndLongitude() + " " +
                             step.getType();
-                    System.out.println(messageStep);
+                    result.add(messageStep);
 
                 }
             }
         }
+        return result; // Retourne les instructions pour une portion de l'itinéraire
     }
 
 }
