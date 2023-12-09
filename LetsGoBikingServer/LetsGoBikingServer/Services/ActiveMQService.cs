@@ -60,10 +60,9 @@ namespace LetsGoBikingServer.Services
                 foreach (var segment in feature.Properties.Segments)
                 {
                     foreach (var step in segment.Steps)
-                    {
-                        string messageStep = typeRoute + step.Instruction + " " + step.Distance + " " + step.Duration + " " +
-                                             step.StartLatitude + " " + step.StartLongitude + " " +
-                                             step.EndLatitude + " " + step.EndLongitude + " " + step.Type;
+                    {   
+                        //retour à la ligne 
+                        string messageStep = typeRoute + step.Instruction + " \n Distance à parcourir : " + step.Distance + "\n Durée de l'étape : " + step.Duration;
 
                         SendMessage(queueId, messageStep);
                     }

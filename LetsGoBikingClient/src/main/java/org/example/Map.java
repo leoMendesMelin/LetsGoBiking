@@ -27,17 +27,23 @@ public class Map {
     private JButton nextStepButton; // Button to go to the next step
     private JTextField startAddressField;
     private JTextField endAddressField;
+    private JLabel remainingDistanceLabel;
+    private JLabel remainingTimeLabel;
     private JButton validateButton;
     private RoutingService routingService = new RoutingService();
     private IRoutingService portRouting = routingService.getBasicHttpBindingIRoutingService();
     private int currentStepIndex = 0; // Current step index
     private List<String> steps; // List of all the steps in the route
+    private List<Step> stepsObject;
     private JXMapViewer mapViewer; // Map viewer
     private List<Painter<JXMapViewer>> painters = new ArrayList<Painter<JXMapViewer>>();
     List<GeoPosition> geoPositionsMain = new ArrayList<>();
     List<GeoPosition> geoPositionsSteps = new ArrayList<>();
     private CompleteRoute route;
     private JButton focusButton;
+
+    private double maxDistance; // La distance totale de l'itinéraire
+    private int maxTime; // Le temps total de l'itinéraire
     private JFrame frame;
     private static Map instance = null;
     private Map() {
@@ -51,7 +57,13 @@ public class Map {
 
     public void launchMap(CompleteRoute route) {
         this.route = route;
-        this.currentStepIndex=0;
+        this.currentStepIndex = 0;
+        this.stepsObject = new ArrayList<>();
+        this.maxDistance = 0;
+        this.maxTime = 0;
+        addStepsObject();
+        initializeDistanceAndTime();
+        updateRouteStatus();
 
         // Assurez-vous que les composants sont réinitialisés et prêts à afficher les nouvelles données
         if (this.mapViewer != null) {
@@ -80,6 +92,8 @@ public class Map {
         this.frame.revalidate();
         this.frame.repaint();
     }
+
+
 
     public void launchEmptyMap() {
         if (this.frame == null) {
@@ -169,6 +183,9 @@ public class Map {
             validateButton.addActionListener(e -> fetchRouteAndUpdateMap());
 
 
+            //
+
+
 
 
             // Panneau pour les composants d'entrée
@@ -206,10 +223,24 @@ public class Map {
             instructionLabel.setPreferredSize(new Dimension(300, 100)); // Définissez la taille préférée du label
             instructionLabel.setVerticalAlignment(SwingConstants.TOP); // Alignez le texte en haut
 
+            //2 labels
+            remainingDistanceLabel = new JLabel("Distance restante : 0 km");
+            remainingTimeLabel = new JLabel("Temps restant : 0 min");
+
+            // Créez un panneau d'état pour les labels de distance et de temps
+            JPanel statusPanel = new JPanel();
+            statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.PAGE_AXIS));
+            statusPanel.add(remainingDistanceLabel);
+            statusPanel.add(remainingTimeLabel);
+            statusPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Ajoutez un espace de 10 pixels
+
+
+
             // Panneau pour les instructions et le bouton next step
             JPanel instructionsPanel = new JPanel(new BorderLayout());
             instructionsPanel.add(instructionLabel, BorderLayout.CENTER);
             instructionsPanel.add(nextStepButton, BorderLayout.PAGE_END);
+            instructionsPanel.add(statusPanel, BorderLayout.NORTH);
 
             //mouse
             //mouse
@@ -230,6 +261,7 @@ public class Map {
 
             // Ajouter les composants au cadre
             this.frame.add(instructionsPanel, BorderLayout.EAST);
+
 
             // Ne pas oublier de redessiner le cadre après avoir ajouté tous les composants
             this.frame.revalidate();
@@ -259,6 +291,7 @@ public class Map {
                     activeMQService.receiveMessages(this);
                     activeMQService.stop();
                     this.launchMap(newRoute);
+
 
 
                 }
@@ -295,15 +328,51 @@ public class Map {
     }
 
     public void showNextStep() {
+        System.out.println("distance du 0 : "+this.stepsObject.get(0).getDistance());
+        System.out.println("temps du 0 :"+this.stepsObject.get(0).getDuration());
+
         this.currentStepIndex++;
         if (currentStepIndex < steps.size()) {
+            System.out.println("current step index : " + currentStepIndex);
             String currentStep = steps.get(currentStepIndex);
+            decrementeDistanceAndTime(currentStepIndex);
+            updateRouteStatus();
             instructionLabel.setText("<html><body style='width: " + 200 + "px'>" + currentStep + "</body></html>"); // Update the label with the new step instruction
             updateMapForNextStep(); // Mettre à jour la carte à l'étape suivante
+            System.out.println(steps.size());
+            System.out.println(stepsObject.size());
+            System.out.println(currentStepIndex);
         } else {
             instructionLabel.setText("<html><body style='width: " + 200 + "px'>" + "You have arrived at your destination." + "</body></html>");
             nextStepButton.setEnabled(false); // Disable the button if it's the last step
+            this.maxDistance = 0;
+            this.maxTime = 0; //on arrive à la fin mais à cause des arrondis on peut avoir des valeurs négatives
+            updateRouteStatus();
+            System.out.println(steps.size());
+            System.out.println(stepsObject.size());
+
         }
+    }
+
+    public void decrementeDistanceAndTime(int currentStepIndex) {
+        if (currentStepIndex >= 0 && currentStepIndex < stepsObject.size()) {
+            Step step = this.stepsObject.get(currentStepIndex);
+            System.out.println("je décrément la distance de " + step.getDistance() + " et le temps de " + step.getDuration());
+
+            this.maxDistance -= step.getDistance();
+            this.maxTime -= step.getDuration();
+            if(this.maxDistance <= 0.1){
+                this.maxDistance = 0;
+            }
+            if(this.maxTime <= 0.1){
+                this.maxTime = 0;
+            }
+        }
+    }
+
+    private void updateRouteStatus() {
+        remainingDistanceLabel.setText("Distance restante : " + maxDistance + " m");
+        remainingTimeLabel.setText("Temps restant : " + maxTime + " s");
     }
 
     public void updateMapForNextStep() {
@@ -394,7 +463,7 @@ public class Map {
 
 
 
-    public static List<String> showStepsFromCompleteRoute(CompleteRoute route) {
+    public List<String> showStepsFromCompleteRoute(CompleteRoute route) {
         List<String> listInstructions = new ArrayList<>();
         if (route.getBikeRoute().getValue() != null) {
             listInstructions.addAll(showStepsFromRouteResponse(route.getWalkToStartStation().getValue(), "Trajet à pied : "));
@@ -406,7 +475,7 @@ public class Map {
         return listInstructions;
     }
 
-    public static List<String> showStepsFromRouteResponse(RouteResponse value, String typeRoute) {
+    public List<String> showStepsFromRouteResponse(RouteResponse value, String typeRoute) {
         List<String> result = new ArrayList<>();
         for (Feature feature : value.getFeatures().getValue().getFeature()) {
             for (Segment segment : feature.getProperties().getValue().getSegments().getValue().getSegment()) {
@@ -423,5 +492,52 @@ public class Map {
             }
         }
         return result; // Retourne les instructions pour une portion de l'itinéraire
+    }
+
+    public void addStepsObject(){
+        if (this.route.getBikeRoute().getValue() != null) {
+            addStepsObjectFromRouteResponse(this.route.getWalkToStartStation().getValue());
+            addStepsObjectFromRouteResponse(this.route.getBikeRoute().getValue());
+            addStepsObjectFromRouteResponse(this.route.getWalkToEnd().getValue());
+        } else {
+            addStepsObjectFromRouteResponse(this.route.getWalkToStartStation().getValue());
+        }
+    }
+
+    public void addStepsObjectFromRouteResponse(RouteResponse value) {
+        for (Feature feature : value.getFeatures().getValue().getFeature()) {
+            for (Segment segment : feature.getProperties().getValue().getSegments().getValue().getSegment()) {
+                for (Step step : segment.getSteps().getValue().getStep()) {
+                    if(!this.stepsObject.contains(step)){
+                        this.stepsObject.add(step);
+
+                    }
+                }
+            }
+        }
+    }
+
+    private void initializeDistanceAndTime() {
+        if(route.getBikeRoute()!=null){
+            calculateRouteTotals(route.getWalkToStartStation().getValue());
+            calculateRouteTotals(route.getBikeRoute().getValue());
+            calculateRouteTotals(route.getWalkToEnd().getValue());
+        }else{
+            calculateRouteTotals(route.getWalkToStartStation().getValue());
+        }
+    }
+
+
+    public void calculateRouteTotals(RouteResponse routeResponse) {
+        for (Feature feature : routeResponse.getFeatures().getValue().getFeature()) {
+            for (Segment segment : feature.getProperties().getValue().getSegments().getValue().getSegment()) {
+                for (Step step : segment.getSteps().getValue().getStep()) {
+                    this.maxDistance += step.getDistance();
+                    this.maxTime += step.getDuration();
+                    System.out.println("distance : " + maxDistance + " time : " +  maxTime);
+
+                }
+            }
+        }
     }
 }
