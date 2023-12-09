@@ -31,6 +31,8 @@ namespace LetsGoBikingServer.Services
         private bool isActiveMQ = true;
 
         private IStationProxyService _iStationService = StationProxyService.GetInstance();
+
+
         string apiKeyOpenStreet = "5b3ce3597851110001cf62481d3c3c09de44442abe0e719a6ce409e1";
         string apiKeyJcDecaux = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
         public RoutingService() {
@@ -152,6 +154,8 @@ namespace LetsGoBikingServer.Services
             if(this.itineraryCache.TryGetItinerary(startAddress, endAddress, out completeRoute))
             {
                 Console.WriteLine("Itinéraire trouvé dans le cache");
+                callActiveMQSendSteps(completeRoute);
+
                 return completeRoute;
             }
             
@@ -205,14 +209,9 @@ namespace LetsGoBikingServer.Services
 
             this.itineraryCache.AddItinerary(startAddress,endAddress,completeRoute);
 
-            try
-            {
-                this._activeMQService.CreateQueueSendSteps(completeRoute);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("ActiveMQ est innaccessbile");
-            }
+            callActiveMQSendSteps(completeRoute);
+
+            
                
             
 
@@ -224,7 +223,17 @@ namespace LetsGoBikingServer.Services
             
         }
 
-
+        public void callActiveMQSendSteps(CompleteRoute completeRoute)
+        {
+            try
+            {
+                this._activeMQService.CreateQueueSendSteps(completeRoute);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ActiveMQ est innaccessbile");
+            }
+        }
 
         public CompleteRoute getCompleteRouteFromTime(double totalTimeClassicItinerary, double totalTimeWalk, RouteResponse walkToStartStation, RouteResponse bikeRoute, RouteResponse walkToEnd, RouteResponse walkRouteItinerary)
         {

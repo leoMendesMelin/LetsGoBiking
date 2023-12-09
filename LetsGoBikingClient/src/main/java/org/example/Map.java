@@ -37,6 +37,7 @@ public class Map {
     List<GeoPosition> geoPositionsMain = new ArrayList<>();
     List<GeoPosition> geoPositionsSteps = new ArrayList<>();
     private CompleteRoute route;
+    private JButton focusButton;
     private JFrame frame;
     private static Map instance = null;
     private Map() {
@@ -50,6 +51,7 @@ public class Map {
 
     public void launchMap(CompleteRoute route) {
         this.route = route;
+        this.currentStepIndex=0;
 
         // Assurez-vous que les composants sont réinitialisés et prêts à afficher les nouvelles données
         if (this.mapViewer != null) {
@@ -91,9 +93,9 @@ public class Map {
 
         // Si un segment à vélo est présent, on crée trois tracés distincts
         if (route.getBikeRoute().getValue() != null) {
-            addRouteToPainters(route.getWalkToStartStation().getValue(), Color.BLACK);
-            addRouteToPainters(route.getBikeRoute().getValue(), Color.BLUE);
-            addRouteToPainters(route.getWalkToEnd().getValue(), Color.BLACK);
+            addRouteToPainters(route.getWalkToStartStation().getValue(), Color.GREEN);
+            addRouteToPainters(route.getBikeRoute().getValue(), Color.BLACK);
+            addRouteToPainters(route.getWalkToEnd().getValue(), Color.RED);
         } else {
             // Sinon, un seul tracé pour l'itinéraire à pied
             addRouteToPainters(route.getWalkToStartStation().getValue(), Color.BLUE);
@@ -168,6 +170,7 @@ public class Map {
 
 
 
+
             // Panneau pour les composants d'entrée
             JPanel inputPanel = new JPanel();
             inputPanel.add(new JLabel("Départ:"));
@@ -175,6 +178,11 @@ public class Map {
             inputPanel.add(new JLabel("Arrivée:"));
             inputPanel.add(endAddressField);
             inputPanel.add(validateButton);
+
+            focusButton = new JButton("Focus");
+            focusButton.addActionListener(e -> focusOnRoute());
+
+            inputPanel.add(focusButton);
 
             // Ajouter le panneau d'entrée au cadre
             this.frame.add(inputPanel, BorderLayout.SOUTH);
@@ -246,6 +254,8 @@ public class Map {
                 try{
                     ActiveMQService activeMQService = new ActiveMQService("tcp://localhost:61616");
                     activeMQService.start(newRoute.getQueueId().getValue());  // Utilisation de l'ID de la queue spécifique
+                    System.out.println("ActiveMQService est disponible");
+                    System.out.println("Je vais ajouter les messages reçu si j'en ai");
                     activeMQService.receiveMessages(this);
                     activeMQService.stop();
                     this.launchMap(newRoute);
@@ -274,6 +284,13 @@ public class Map {
                 ex.printStackTrace();
 
             }
+        }
+    }
+
+    public void focusOnRoute() {
+        if (!geoPositionsMain.isEmpty()) {
+            mapViewer.zoomToBestFit(new HashSet<>(geoPositionsMain), 0.7);
+            mapViewer.repaint();
         }
     }
 

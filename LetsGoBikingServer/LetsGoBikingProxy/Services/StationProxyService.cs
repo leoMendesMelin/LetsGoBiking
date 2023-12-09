@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Caching;
-using System.Net.Http;
-using LetsGoBikingLibrary2.Models;
 using System.Threading.Tasks;
+using LetsGoBikingLibrary2.Models;
+using Newtonsoft.Json;
+using System.Net.Http;
 using System.ServiceModel;
+using LetsGoBikingProxy.Cache;
 
 namespace LetsGoBikingProxy.Services
 {
@@ -14,66 +14,37 @@ namespace LetsGoBikingProxy.Services
     {
         private readonly HttpClient _httpClient = new HttpClient();
         private readonly string _jcDecauxApiKey = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
-        private MemoryCache _cache = new MemoryCache("StationProxyServiceCache");
-        private static StationProxyService _instance;
+        private GenericProxyCache<List<Station>> _stationsCache = new GenericProxyCache<List<Station>>();
+        private GenericProxyCache<List<Contract>> _contractsCache = new GenericProxyCache<List<Contract>>();
+        private static readonly Lazy<StationProxyService> _instance = new Lazy<StationProxyService>(() => new StationProxyService());
+
 
         public static StationProxyService GetInstance()
         {
-            if (_instance == null)
-            {
-                _instance = new StationProxyService();
-            }
-            return _instance;
+            return _instance.Value;
         }
-
         public async Task<List<Station>> GetAllStationsAsync(string contractName)
         {
             string cacheKey = $"Stations_{contractName}";
-            Console.WriteLine("Cache station: " + _cache.Contains(cacheKey));
-            Console.WriteLine("Cache station cache key: " + cacheKey);
-
-            if (!_cache.Contains(cacheKey))
+            return await _stationsCache.Get(cacheKey, async () =>
             {
-                Console.WriteLine("Cache miss pour les station du contract " + contractName);
                 var response = await _httpClient.GetAsync($"https://api.jcdecaux.com/vls/v1/stations?contract={contractName}&apiKey={_jcDecauxApiKey}");
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
-                var stations = JsonConvert.DeserializeObject<List<Station>>(content);
-
-                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(100) };
-                _cache.Add(new CacheItem(cacheKey, stations), policy);
-
-                return stations;
-            }
-            else
-            {
-                Console.WriteLine("Cache hit pour les stations du contract " + contractName);
-                return (List<Station>)_cache.Get(cacheKey);
-            }
+                return JsonConvert.DeserializeObject<List<Station>>(content);
+            });
         }
 
         public async Task<List<Contract>> GetAllContractsAsync()
         {
             string cacheKey = "Contracts";
-            Console.WriteLine("Cache contract: " + _cache.Contains(cacheKey));
-
-            if (!_cache.Contains(cacheKey))
+            return await _contractsCache.Get(cacheKey, async () =>
             {
-                Console.WriteLine("Cache miss pour les contracts");
                 var response = await _httpClient.GetAsync($"https://api.jcdecaux.com/vls/v1/contracts?apiKey={_jcDecauxApiKey}");
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
-                var contracts = JsonConvert.DeserializeObject<List<Contract>>(content);
-
-                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(10) };
-                _cache.Add(new CacheItem(cacheKey, contracts), policy);
-
-                return contracts;
-            }
-            else
-            {
-                return (List<Contract>)_cache.Get(cacheKey);
-            }
+                return JsonConvert.DeserializeObject<List<Contract>>(content);
+            });
         }
     }
 }

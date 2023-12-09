@@ -33,6 +33,8 @@ namespace LetsGoBikingServer.Services
             string queueId = Guid.NewGuid().ToString();
             IDestination destination = _session.GetQueue(queueId);
             route.queueId = queueId;
+            Console.WriteLine("Création de la queue " + queueId);
+            Console.WriteLine("Envoi des messages dans la queue " + queueId);
 
             if (route.WalkToStartStation != null)
             {
@@ -46,6 +48,7 @@ namespace LetsGoBikingServer.Services
             {
                 CreateTheMessageToSend(route.WalkToEnd, route.queueId,"Trajet à pied jusqu'à l'adresse d'arrivée : ");
             }
+            Console.WriteLine("Fin de l'envoi des messages dans la queue " + queueId);
             // Pas besoin de créer un producer ici, car il sera créé lors de l'envoi du message.
             return queueId;
         }
