@@ -224,7 +224,7 @@ public class Map {
             nextStepButton.setEnabled(false); // Désactivez le bouton jusqu'à ce qu'une route soit chargée
 
             // Utilisez des balises HTML pour permettre les retours à la ligne automatiques
-            instructionLabel = new JLabel("<html><body style='width: " + 300 + "px'>" + "Instruction for the current step" + "</body></html>");
+            instructionLabel = new JLabel("<html><body style='width: " + 300 + "px'>" + "Rentrez une adresse de départ et d'arrivée" + "</body></html>");
             instructionLabel.setPreferredSize(new Dimension(300, 100)); // Définissez la taille préférée du label
             instructionLabel.setVerticalAlignment(SwingConstants.TOP); // Alignez le texte en haut
 
@@ -292,7 +292,6 @@ public class Map {
                     ActiveMQService activeMQService = new ActiveMQService("tcp://localhost:61616");
                     activeMQService.start(newRoute.getQueueId().getValue());  // Utilisation de l'ID de la queue spécifique
                     System.out.println("ActiveMQService est disponible");
-                    System.out.println("Je vais ajouter les messages reçu si j'en ai");
                     activeMQService.receiveMessages(this);
                     activeMQService.stop();
                     this.launchMap(newRoute);
@@ -312,7 +311,6 @@ public class Map {
 
                 //launchMap(newRoute);
 
-                System.out.println("okk j'ai mis à jour bg");
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(frame,
@@ -342,23 +340,17 @@ public class Map {
         }
 
         if (currentStepIndex < steps.size()) {
-            System.out.println("current step index : " + currentStepIndex);
             String currentStep = steps.get(currentStepIndex);
             decrementeDistanceAndTime(currentStepIndex);
             updateRouteStatus();
             instructionLabel.setText("<html><body style='width: " + 200 + "px'>" + currentStep + "</body></html>"); // Update the label with the new step instruction
             updateMapForNextStep(); // Mettre à jour la carte à l'étape suivante
-            System.out.println(steps.size());
-            System.out.println(stepsObject.size());
-            System.out.println(currentStepIndex);
         } else {
             instructionLabel.setText("<html><body style='width: " + 200 + "px'>" + "You have arrived at your destination." + "</body></html>");
             nextStepButton.setEnabled(false); // Disable the button if it's the last step
             this.maxDistance = 0;
             this.maxTime = 0; //on arrive à la fin mais à cause des arrondis on peut avoir des valeurs négatives
             updateRouteStatus();
-            System.out.println(steps.size());
-            System.out.println(stepsObject.size());
 
         }
     }
@@ -367,7 +359,6 @@ public class Map {
         if (currentStepIndex % CHECK_INTERVAL == 0) {
             try {
                 boolean isStationAvailable = false;
-                System.out.println("je check si la station de"+station.getName().getValue() +"est available");
                 if(typeStation.equals("depart")){
                     isStationAvailable = this.portRouting.checkStationAvailable(route.getStartContract().getValue(), station, typeStation);
                 }else{
@@ -395,7 +386,6 @@ public class Map {
     public void decrementeDistanceAndTime(int currentStepIndex) {
         if (currentStepIndex >= 0 && currentStepIndex < stepsObject.size()) {
             Step step = this.stepsObject.get(currentStepIndex);
-            System.out.println("je décrément la distance de " + step.getDistance() + " et le temps de " + step.getDuration());
 
             this.maxDistance -= step.getDistance();
             this.maxTime -= step.getDuration();
@@ -434,7 +424,6 @@ public class Map {
 
 
     public void setSteps(List<String> steps) {
-        System.out.println("nombre de steps : " + steps.size());
         this.steps = steps;
     }
 

@@ -25,7 +25,8 @@ namespace LetsGoBikingServer.Services
     public class RoutingService : IRoutingService
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        private readonly ActiveMQService _activeMQService;
+        private ActiveMQService _activeMQService;
+        private static RoutingService _instance;
         private readonly ItineraryCache itineraryCache = ItineraryCache.GetInstance();
         //boolean pour savoir is activeMQ est lancé ou non
         private bool isActiveMQ = true;
@@ -36,22 +37,51 @@ namespace LetsGoBikingServer.Services
         string apiKeyOpenStreet = "5b3ce3597851110001cf62481d3c3c09de44442abe0e719a6ce409e1";
         string apiKeyJcDecaux = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
         public RoutingService() {
-                _iStationService.GetAllContractsAsync();
-            //checkez si activeMQ est lancé
-            try
-            {
-                _activeMQService = new ActiveMQService("tcp://localhost:61616");
-
-            }catch(Exception e)
-            {
-                isActiveMQ = false;
-                Console.WriteLine("ActiveMQ n'est pas lancé");
-            }
+          
 
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "LetsGoBkingLeo");
 
 
         }
+
+        public static RoutingService GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new RoutingService();
+            }
+            return _instance;
+        }
+
+
+        public async Task InitializeAsync()
+        {
+            // Initialiser le cache et d'autres éléments ici
+            await _iStationService.GetAllContractsAsync();
+            // Autres initialisations si nécessaire...
+
+            // Initialiser ActiveMQ ici
+            InitializeActiveMQ();
+        }
+
+        private void InitializeActiveMQ()
+        {
+            try
+            {
+                _activeMQService = new ActiveMQService("tcp://localhost:61616");
+                isActiveMQ = true;
+                Console.WriteLine("Connexion à ActiveMQ réussie.");
+            }
+            catch (Exception e)
+            {
+                isActiveMQ = false;
+                Console.WriteLine("La connexion à ActiveMQ a échoué: " + e.Message);
+            }
+        }
+
+      
+
+
 
         public async Task<Position> GetPositionAsync(string address)
         {

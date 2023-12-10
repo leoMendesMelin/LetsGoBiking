@@ -1,7 +1,6 @@
-﻿using LetsGoBikingServer.Services;
-using System;
+﻿using System;
 using System.ServiceModel;
-using LetsGoBikingProxy.Services; // Ajoutez le namespace approprié pour StationProxyService
+using LetsGoBikingServer.Services;
 
 namespace LetsGoBikingServer
 {
@@ -9,51 +8,39 @@ namespace LetsGoBikingServer
     {
         static void Main(string[] args)
         {
-            // Héberger le RoutingService
-            ServiceHost hostRouting = CreateServiceHost(typeof(RoutingService), "http://localhost:8001/RoutingService");
+            // Obtenez l'instance singleton du RoutingService.
+            RoutingService routingService = RoutingService.GetInstance();
 
-            // Ajoutez la ligne suivante pour héberger le StationProxyService
-            //ServiceHost hostStationProxy = CreateServiceHost(typeof(StationProxyService), "http://localhost:8000/StationProxyService");
+            // Créez le ServiceHost en utilisant l'instance singleton.
+            ServiceHost hostRouting = new ServiceHost(routingService, new Uri("http://localhost:8001/RoutingService"));
+            hostRouting.AddServiceEndpoint(typeof(IRoutingService), new BasicHttpBinding(), "");
 
             try
             {
-                StartService(hostRouting, "RoutingService");
-               // StartService(hostStationProxy, "StationProxyService"); // Démarrer le StationProxyService
+                // Démarrer le service.
+                hostRouting.Open();
+                Console.WriteLine("RoutingService est prêt à l'adresse : http://localhost:8001/RoutingService");
 
-                //lancer les appels pour récupérer les données de JC DECAUX comme ça le cache est rempli
+                // Initialisez le service après le démarrage.
+                routingService.InitializeAsync().GetAwaiter().GetResult();
+                Console.WriteLine("Le cache est initialisé.");
 
                 Console.WriteLine("Appuyez sur <Entrée> pour arrêter les services.");
                 Console.ReadLine();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une exception est survenue: {ex.Message}");
+            }
             finally
             {
-                StopService(hostRouting, "RoutingService");
-               // StopService(hostStationProxy, "StationProxyService"); // Arrêter le StationProxyService
-            }
-        }
-
-        static ServiceHost CreateServiceHost(Type serviceType, string address)
-        {
-            Uri serviceAddress = new Uri(address);
-            ServiceHost host = new ServiceHost(serviceType, serviceAddress);
-            host.AddServiceEndpoint(serviceType.GetInterfaces()[0], new BasicHttpBinding(), "");
-            return host;
-        }
-
-        static void StartService(ServiceHost host, string serviceName)
-        {
-            host.Open();
-            Console.WriteLine($"{serviceName} est prêt à l'adresse : {host.BaseAddresses[0]}");
-        }
-
-        static void StopService(ServiceHost host, string serviceName)
-        {
-            if (host != null)
-            {
-                host.Close();
-                Console.WriteLine($"{serviceName} a été arrêté.");
+                // Arrêter le service.
+                if (hostRouting.State == CommunicationState.Opened)
+                {
+                    hostRouting.Close();
+                    Console.WriteLine("RoutingService est arrêté.");
+                }
             }
         }
     }
 }
-    
