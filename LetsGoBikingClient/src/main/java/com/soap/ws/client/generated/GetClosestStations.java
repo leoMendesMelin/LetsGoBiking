@@ -4,7 +4,6 @@ package com.soap.ws.client.generated;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -39,14 +38,11 @@ import javax.xml.bind.annotation.XmlType;
     "numberOfStations",
     "closestContract"
 })
-@XmlRootElement(name = "GetClosestStations", namespace = "http://tempuri.org/")
+@XmlRootElement(name = "GetClosestStations")
 public class GetClosestStations {
 
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double userLatitude;
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double userLongitude;
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Integer numberOfStations;
     @XmlElementRef(name = "closestContract", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
     protected JAXBElement<String> closestContract;

@@ -72,6 +72,9 @@ public class ObjectFactory {
     private final static QName _GetCompleteRouteStartAddress_QNAME = new QName("http://tempuri.org/", "startAddress");
     private final static QName _GetCompleteRouteEndAddress_QNAME = new QName("http://tempuri.org/", "endAddress");
     private final static QName _GetCompleteRouteResponseGetCompleteRouteResult_QNAME = new QName("http://tempuri.org/", "GetCompleteRouteResult");
+    private final static QName _CheckStationAvailableContract_QNAME = new QName("http://tempuri.org/", "contract");
+    private final static QName _CheckStationAvailableStation_QNAME = new QName("http://tempuri.org/", "station");
+    private final static QName _CheckStationAvailableTypeStation_QNAME = new QName("http://tempuri.org/", "typeStation");
     private final static QName _StepInstruction_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "Instruction");
     private final static QName _StepName_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "Name");
     private final static QName _StepWayPoints_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "way_points");
@@ -82,8 +85,10 @@ public class ObjectFactory {
     private final static QName _CompleteRouteStartStation_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "StartStation");
     private final static QName _CompleteRouteWalkToEnd_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "WalkToEnd");
     private final static QName _CompleteRouteWalkToStartStation_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "WalkToStartStation");
+    private final static QName _CompleteRouteEndContract_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "endContract");
     private final static QName _CompleteRouteEndPosition_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "endPosition");
     private final static QName _CompleteRouteQueueId_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "queueId");
+    private final static QName _CompleteRouteStartContract_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "startContract");
     private final static QName _CompleteRouteStartPosition_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "startPosition");
     private final static QName _RouteResponseFeatures_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "Features");
     private final static QName _StationAddress_QNAME = new QName("http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", "address");
@@ -209,6 +214,22 @@ public class ObjectFactory {
      */
     public CompleteRoute createCompleteRoute() {
         return new CompleteRoute();
+    }
+
+    /**
+     * Create an instance of {@link CheckStationAvailable }
+     * 
+     */
+    public CheckStationAvailable createCheckStationAvailable() {
+        return new CheckStationAvailable();
+    }
+
+    /**
+     * Create an instance of {@link CheckStationAvailableResponse }
+     * 
+     */
+    public CheckStationAvailableResponse createCheckStationAvailableResponse() {
+        return new CheckStationAvailableResponse();
     }
 
     /**
@@ -863,6 +884,45 @@ public class ObjectFactory {
      * @return
      *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
      */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "contract", scope = CheckStationAvailable.class)
+    public JAXBElement<String> createCheckStationAvailableContract(String value) {
+        return new JAXBElement<String>(_CheckStationAvailableContract_QNAME, String.class, CheckStationAvailable.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Station }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Station }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "station", scope = CheckStationAvailable.class)
+    public JAXBElement<Station> createCheckStationAvailableStation(Station value) {
+        return new JAXBElement<Station>(_CheckStationAvailableStation_QNAME, Station.class, CheckStationAvailable.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://tempuri.org/", name = "typeStation", scope = CheckStationAvailable.class)
+    public JAXBElement<String> createCheckStationAvailableTypeStation(String value) {
+        return new JAXBElement<String>(_CheckStationAvailableTypeStation_QNAME, String.class, CheckStationAvailable.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
     @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", name = "Instruction", scope = Step.class)
     public JAXBElement<String> createStepInstruction(String value) {
         return new JAXBElement<String>(_StepInstruction_QNAME, String.class, Step.class, value);
@@ -1012,6 +1072,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", name = "endContract", scope = CompleteRoute.class)
+    public JAXBElement<String> createCompleteRouteEndContract(String value) {
+        return new JAXBElement<String>(_CompleteRouteEndContract_QNAME, String.class, CompleteRoute.class, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Position }{@code >}
      * 
      * @param value
@@ -1035,6 +1108,19 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", name = "queueId", scope = CompleteRoute.class)
     public JAXBElement<String> createCompleteRouteQueueId(String value) {
         return new JAXBElement<String>(_CompleteRouteQueueId_QNAME, String.class, CompleteRoute.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link String }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", name = "startContract", scope = CompleteRoute.class)
+    public JAXBElement<String> createCompleteRouteStartContract(String value) {
+        return new JAXBElement<String>(_CompleteRouteStartContract_QNAME, String.class, CompleteRoute.class, value);
     }
 
     /**

@@ -3,7 +3,6 @@ package com.soap.ws.client.generated;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -33,12 +32,10 @@ import javax.xml.bind.annotation.XmlType;
     "userLatitude",
     "userLongitude"
 })
-@XmlRootElement(name = "GetClosestContract", namespace = "http://tempuri.org/")
+@XmlRootElement(name = "GetClosestContract")
 public class GetClosestContract {
 
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double userLatitude;
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double userLongitude;
 
     /**

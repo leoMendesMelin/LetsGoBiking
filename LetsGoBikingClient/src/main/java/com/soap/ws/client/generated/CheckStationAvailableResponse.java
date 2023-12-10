@@ -1,10 +1,9 @@
 
 package com.soap.ws.client.generated;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -19,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="CheckStationAvailableResult" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -30,36 +29,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "address"
+    "checkStationAvailableResult"
 })
-@XmlRootElement(name = "GetPosition")
-public class GetPosition {
+@XmlRootElement(name = "CheckStationAvailableResponse")
+public class CheckStationAvailableResponse {
 
-    @XmlElementRef(name = "address", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> address;
+    @XmlElement(name = "CheckStationAvailableResult")
+    protected Boolean checkStationAvailableResult;
 
     /**
-     * Obtient la valeur de la propriété address.
+     * Obtient la valeur de la propriété checkStationAvailableResult.
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     {@link Boolean }
      *     
      */
-    public JAXBElement<String> getAddress() {
-        return address;
+    public Boolean isCheckStationAvailableResult() {
+        return checkStationAvailableResult;
     }
 
     /**
-     * Définit la valeur de la propriété address.
+     * Définit la valeur de la propriété checkStationAvailableResult.
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     {@link Boolean }
      *     
      */
-    public void setAddress(JAXBElement<String> value) {
-        this.address = value;
+    public void setCheckStationAvailableResult(Boolean value) {
+        this.checkStationAvailableResult = value;
     }
 
 }

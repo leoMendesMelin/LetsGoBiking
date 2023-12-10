@@ -14,6 +14,8 @@ namespace LetsGoBikingLibrary2.Models
         public string Id { get; private set; }
         public string queueId { get; set; }
 
+        public string startContract { get; set; }
+        public string endContract { get; set; }
         public Position startPosition { get; set; }
         public Position endPosition { get; set; }
         public Station StartStation { get; set; }

@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Summary", propOrder = {
+@XmlType(name = "Summary", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", propOrder = {
     "distance",
     "duration"
 })

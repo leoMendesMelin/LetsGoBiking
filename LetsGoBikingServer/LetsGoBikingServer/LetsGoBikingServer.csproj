@@ -114,6 +114,7 @@
     <Compile Include="Exceptions\DistanceTooGreatException.cs" />
     <Compile Include="Exceptions\NoPositionFoundException.cs" />
     <Compile Include="Exceptions\NoStationFoundException.cs" />
+    <Compile Include="Exceptions\StationException.cs" />
     <Compile Include="Manager\ItineraryCache.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

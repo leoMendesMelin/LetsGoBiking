@@ -28,6 +28,9 @@ namespace LetsGoBikingServer.Services
         [OperationContract]
         Task<CompleteRoute> GetCompleteRouteAsync(string startAddress, string endAddress);
 
+        [OperationContract]
+        Task<bool> CheckStationAvailable(string contract, Station station, string typeStation);
+
 
 
 

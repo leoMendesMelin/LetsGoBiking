@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Segment", propOrder = {
+@XmlType(name = "Segment", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", propOrder = {
     "distance",
     "duration",
     "steps"

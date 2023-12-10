@@ -23,8 +23,10 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="StartStation" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}Station" minOccurs="0"/&gt;
  *         &lt;element name="WalkToEnd" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}RouteResponse" minOccurs="0"/&gt;
  *         &lt;element name="WalkToStartStation" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}RouteResponse" minOccurs="0"/&gt;
+ *         &lt;element name="endContract" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="endPosition" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}Position" minOccurs="0"/&gt;
  *         &lt;element name="queueId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="startContract" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="startPosition" type="{http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models}Position" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -35,14 +37,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CompleteRoute", propOrder = {
+@XmlType(name = "CompleteRoute", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", propOrder = {
     "bikeRoute",
     "endStation",
     "startStation",
     "walkToEnd",
     "walkToStartStation",
+    "endContract",
     "endPosition",
     "queueId",
+    "startContract",
     "startPosition"
 })
 public class CompleteRoute {
@@ -57,10 +61,14 @@ public class CompleteRoute {
     protected JAXBElement<RouteResponse> walkToEnd;
     @XmlElementRef(name = "WalkToStartStation", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<RouteResponse> walkToStartStation;
+    @XmlElementRef(name = "endContract", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> endContract;
     @XmlElementRef(name = "endPosition", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<Position> endPosition;
     @XmlElementRef(name = "queueId", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<String> queueId;
+    @XmlElementRef(name = "startContract", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
+    protected JAXBElement<String> startContract;
     @XmlElementRef(name = "startPosition", namespace = "http://schemas.datacontract.org/2004/07/LetsGoBikingLibrary2.Models", type = JAXBElement.class, required = false)
     protected JAXBElement<Position> startPosition;
 
@@ -185,6 +193,30 @@ public class CompleteRoute {
     }
 
     /**
+     * Obtient la valeur de la propriété endContract.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getEndContract() {
+        return endContract;
+    }
+
+    /**
+     * Définit la valeur de la propriété endContract.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setEndContract(JAXBElement<String> value) {
+        this.endContract = value;
+    }
+
+    /**
      * Obtient la valeur de la propriété endPosition.
      * 
      * @return
@@ -230,6 +262,30 @@ public class CompleteRoute {
      */
     public void setQueueId(JAXBElement<String> value) {
         this.queueId = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété startContract.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public JAXBElement<String> getStartContract() {
+        return startContract;
+    }
+
+    /**
+     * Définit la valeur de la propriété startContract.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
+     *     
+     */
+    public void setStartContract(JAXBElement<String> value) {
+        this.startContract = value;
     }
 
     /**

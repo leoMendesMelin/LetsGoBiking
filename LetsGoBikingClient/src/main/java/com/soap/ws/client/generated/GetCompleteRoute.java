@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
     "startAddress",
     "endAddress"
 })
-@XmlRootElement(name = "GetCompleteRoute", namespace = "http://tempuri.org/")
+@XmlRootElement(name = "GetCompleteRoute")
 public class GetCompleteRoute {
 
     @XmlElementRef(name = "startAddress", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)

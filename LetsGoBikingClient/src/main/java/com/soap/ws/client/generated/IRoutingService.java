@@ -120,4 +120,24 @@ public interface IRoutingService {
         @WebParam(name = "endAddress", targetNamespace = "http://tempuri.org/")
         String endAddress);
 
+    /**
+     * 
+     * @param contract
+     * @param station
+     * @param typeStation
+     * @return
+     *     returns java.lang.Boolean
+     */
+    @WebMethod(operationName = "CheckStationAvailable", action = "http://tempuri.org/IRoutingService/CheckStationAvailable")
+    @WebResult(name = "CheckStationAvailableResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "CheckStationAvailable", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.CheckStationAvailable")
+    @ResponseWrapper(localName = "CheckStationAvailableResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.CheckStationAvailableResponse")
+    public Boolean checkStationAvailable(
+        @WebParam(name = "contract", targetNamespace = "http://tempuri.org/")
+        String contract,
+        @WebParam(name = "station", targetNamespace = "http://tempuri.org/")
+        Station station,
+        @WebParam(name = "typeStation", targetNamespace = "http://tempuri.org/")
+        String typeStation);
+
 }

@@ -40,11 +40,13 @@ public class Map {
     List<GeoPosition> geoPositionsMain = new ArrayList<>();
     List<GeoPosition> geoPositionsSteps = new ArrayList<>();
     private CompleteRoute route;
+    private boolean testStation = false;
     private JButton focusButton;
 
     private double maxDistance; // La distance totale de l'itinéraire
     private int maxTime; // Le temps total de l'itinéraire
     private JFrame frame;
+    private static final int CHECK_INTERVAL = 5;
     private static Map instance = null;
     private Map() {
     }
@@ -61,7 +63,9 @@ public class Map {
         this.stepsObject = new ArrayList<>();
         this.maxDistance = 0;
         this.maxTime = 0;
+        this.testStation = false;
         addStepsObject();
+
         initializeDistanceAndTime();
         updateRouteStatus();
 
@@ -84,6 +88,7 @@ public class Map {
         initializeRoutePainters();
         this.mapViewer.zoomToBestFit(new HashSet<>(geoPositionsSteps), 0.7);
 
+        this.instructionLabel.setText("<html><body style='width: " + 200 + "px'>" + this.steps.get(0) + "</body></html>");
 
         if(!this.geoPositionsSteps.isEmpty()){
             this.nextStepButton.setEnabled(true);
@@ -305,7 +310,7 @@ public class Map {
 
                 // Mettre à jour la carte avec la nouvelle route
 
-                launchMap(newRoute);
+                //launchMap(newRoute);
 
                 System.out.println("okk j'ai mis à jour bg");
 
@@ -328,10 +333,14 @@ public class Map {
     }
 
     public void showNextStep() {
-        System.out.println("distance du 0 : "+this.stepsObject.get(0).getDistance());
-        System.out.println("temps du 0 :"+this.stepsObject.get(0).getDuration());
+
 
         this.currentStepIndex++;
+        if(route.getBikeRoute().getValue()!=null){
+            checkIfStationsAvailable(route.getStartStation().getValue(),"depart");
+            checkIfStationsAvailable(route.getEndStation().getValue(),"arrivee");
+        }
+
         if (currentStepIndex < steps.size()) {
             System.out.println("current step index : " + currentStepIndex);
             String currentStep = steps.get(currentStepIndex);
@@ -351,6 +360,35 @@ public class Map {
             System.out.println(steps.size());
             System.out.println(stepsObject.size());
 
+        }
+    }
+
+    public void checkIfStationsAvailable(Station station, String typeStation) {
+        if (currentStepIndex % CHECK_INTERVAL == 0) {
+            try {
+                boolean isStationAvailable = false;
+                System.out.println("je check si la station de"+station.getName().getValue() +"est available");
+                if(typeStation.equals("depart")){
+                    isStationAvailable = this.portRouting.checkStationAvailable(route.getStartContract().getValue(), station, typeStation);
+                }else{
+                    isStationAvailable = this.portRouting.checkStationAvailable(route.getEndContract().getValue(), station, typeStation);
+
+                }
+
+                if (!isStationAvailable || !this.testStation) {
+                    this.testStation = true;
+                    JOptionPane.showMessageDialog(frame,
+                            "La station de vélo vers laquelle vous vous dirigez n'est plus disponible. Veuillez recalculer votre itinéraire.",
+                            "Station non disponible",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(frame,
+                        "Une erreur est survenue lors de la vérification de la disponibilité de la station : " + e.getMessage(),
+                        "Erreur de Vérification",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -480,11 +518,8 @@ public class Map {
         for (Feature feature : value.getFeatures().getValue().getFeature()) {
             for (Segment segment : feature.getProperties().getValue().getSegments().getValue().getSegment()) {
                 for (Step step : segment.getSteps().getValue().getStep()) {
-                    String messageStep = typeRoute + " " + step.getInstruction().getValue() + " " +
-                            step.getDistance() + " " + step.getDuration() + " " +
-                            step.getStartLatitude() + " " + step.getStartLongitude() + " " +
-                            step.getEndLatitude() + " " + step.getEndLongitude() + " " +
-                            step.getType();
+                    String messageStep = typeRoute + " " + step.getInstruction().getValue() + " \n Distance : " +
+                            step.getDistance() + "m \n Durée : " + step.getDuration()+"s";
                     result.add(messageStep);
                     //System.out.println(messageStep);
 
@@ -518,23 +553,23 @@ public class Map {
     }
 
     private void initializeDistanceAndTime() {
-        if(route.getBikeRoute()!=null){
-            calculateRouteTotals(route.getWalkToStartStation().getValue());
-            calculateRouteTotals(route.getBikeRoute().getValue());
-            calculateRouteTotals(route.getWalkToEnd().getValue());
+        if(this.route.getBikeRoute().getValue()!=null){
+            calculateRouteTotals(this.route.getWalkToStartStation().getValue());
+            calculateRouteTotals(this.route.getBikeRoute().getValue());
+            calculateRouteTotals(this.route.getWalkToEnd().getValue());
         }else{
-            calculateRouteTotals(route.getWalkToStartStation().getValue());
+            calculateRouteTotals(this.route.getWalkToStartStation().getValue());
         }
     }
 
 
     public void calculateRouteTotals(RouteResponse routeResponse) {
+
         for (Feature feature : routeResponse.getFeatures().getValue().getFeature()) {
             for (Segment segment : feature.getProperties().getValue().getSegments().getValue().getSegment()) {
                 for (Step step : segment.getSteps().getValue().getStep()) {
                     this.maxDistance += step.getDistance();
                     this.maxTime += step.getDuration();
-                    System.out.println("distance : " + maxDistance + " time : " +  maxTime);
 
                 }
             }

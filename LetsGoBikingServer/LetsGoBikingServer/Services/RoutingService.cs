@@ -36,6 +36,7 @@ namespace LetsGoBikingServer.Services
         string apiKeyOpenStreet = "5b3ce3597851110001cf62481d3c3c09de44442abe0e719a6ce409e1";
         string apiKeyJcDecaux = "0484963fbd484dfeb5bf83031ef743273bf62fbc";
         public RoutingService() {
+                _iStationService.GetAllContractsAsync();
             //checkez si activeMQ est lancé
             try
             {
@@ -197,6 +198,8 @@ namespace LetsGoBikingServer.Services
                     
             completeRoute.startPosition = startPosition;
             completeRoute.endPosition = endPosition;
+            completeRoute.startContract = startContract;
+            completeRoute.endContract = endContract;
                     
             //si le chemin est un intinéraire classic alors on va mettre les stations de départ et d'arrivée
             if (completeRoute.BikeRoute != null)
@@ -397,12 +400,49 @@ namespace LetsGoBikingServer.Services
             return geoStart.GetDistanceTo(geoEnd);
         }
 
-     
-
-
-
-
-
+        public async Task<bool> CheckStationAvailable(string contract, Station station, string typeStation)
+        {
+            List<Station> stations = await _iStationService.GetAllStationsAsync(contract);
+            foreach (var s in stations)
+            {
+                if (s.address.Equals(station.address))
+                {
+                    if (s.status.Equals("OPEN"))
+                    {
+                        if (typeStation.Equals("depart"))
+                        {
+                            if (s.available_bikes > 0)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                throw new StationException("La station n'a pas de vélo disponible");
+                            }
+                        }
+                        else
+                        {
+                            if (s.available_bike_stands > 0)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                throw new Exception("La station n'a pas de place disponible");
+                            }
+                        }
+                        
+                    }
+                    else
+                    {
+                        throw new StationException("La station est fermée");
+                    }
+                }
+               
+            }
+            throw new StationException("La station n'existe pas");
+            
+        }
     }
 
 

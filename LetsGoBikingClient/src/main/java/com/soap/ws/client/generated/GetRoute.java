@@ -4,7 +4,6 @@ package com.soap.ws.client.generated;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -41,16 +40,12 @@ import javax.xml.bind.annotation.XmlType;
     "endLon",
     "typeRoute"
 })
-@XmlRootElement(name = "GetRoute", namespace = "http://tempuri.org/")
+@XmlRootElement(name = "GetRoute")
 public class GetRoute {
 
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double startLat;
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double startLon;
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double endLat;
-    @XmlElement(namespace = "http://tempuri.org/")
     protected Double endLon;
     @XmlElementRef(name = "typeRoute", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
     protected JAXBElement<String> typeRoute;

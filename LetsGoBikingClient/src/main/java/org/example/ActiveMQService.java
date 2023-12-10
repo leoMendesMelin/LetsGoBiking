@@ -39,7 +39,6 @@ public class ActiveMQService {
                     System.out.println("Aucun message reçu.");
                     break; // Sortir de la boucle si aucun message n'est reçu
                 }
-                System.out.println("Message reçu. j'ajoute");
 
                 if (message instanceof TextMessage) {
                     TextMessage textMessage = (TextMessage) message;
@@ -50,7 +49,6 @@ public class ActiveMQService {
                     System.out.println("Message reçu n'est pas un message texte.");
                 }
             }
-            System.out.println("il y a " + listInstructions.size() + " instructions");
             map.setSteps(listInstructions);
         } catch (JMSException e) {
             System.err.println("Exception lors de la réception du message: " + e.getMessage());
