@@ -13,6 +13,7 @@
 # Mono Auto Generated Files
 mono_crash.*
 
+!LetsGoBikingServer/LetsGoBikingProxy/bin/Debug/memory.exe
 # Build results
 
 [Dd]ebugPublic/
